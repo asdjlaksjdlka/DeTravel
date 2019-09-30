@@ -6,4 +6,10 @@ public interface UserDao {
 
     User findByEmail(String email);
 
+    User findByUNickName(String uNickName);
+
+    void add(User user);
+
+
+
 }

@@ -79,4 +79,17 @@ public class User implements Serializable {
     public void setuPicture(String uPicture) {
         this.uPicture = uPicture;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "uId=" + uId +
+                ", uName='" + uName + '\'' +
+                ", uNickName='" + uNickName + '\'' +
+                ", uEmail='" + uEmail + '\'' +
+                ", uPassWord='" + uPassWord + '\'' +
+                ", uPhone='" + uPhone + '\'' +
+                ", uPicture='" + uPicture + '\'' +
+                '}';
+    }
 }

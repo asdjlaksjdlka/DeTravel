@@ -24,6 +24,14 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         select * from t_user where u_email = #{email}
     </select>
 
+    <select id="findByUNickName" resultMap="user" >
+        select * from t_user where u_nickname = #{uNickName}
+    </select>
+
+    <insert id="add" >
+        insert into t_user(u_name,u_nickname,u_email,u_password) values (#{uName},#{uNickName},#{uEmail},#{uPassWord})
+    </insert>
+
 
 
 </mapper>

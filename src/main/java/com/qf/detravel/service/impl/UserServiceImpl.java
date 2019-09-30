@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
-
+    //登录
     @Override
     public User findByEmail(String uEmail, String uPassWord) {
 
@@ -24,5 +24,35 @@ public class UserServiceImpl implements UserService {
         }else {
             return user;
         }
+    }
+
+    //添加用户
+    @Override
+    public void add(User user) {
+        userDao.add(user);
+    }
+
+    //注册验证，昵称，邮箱不能重复
+    @Override
+    public void signIn(String uNickName, String uEmail) {
+
+        if (uNickName == null){
+            throw new RuntimeException("昵称不能为空");
+        }
+
+        if (uEmail == null){
+            throw new RuntimeException("邮箱不能为空");
+        }
+
+        User byEmail = userDao.findByEmail(uEmail);
+        User byUNickName = userDao.findByUNickName(uNickName);
+        if (byEmail != null){
+            throw new RuntimeException("邮箱已被注册");
+        }
+        if (byUNickName != null){
+            throw new RuntimeException("昵称已被注册");
+        }
+
+
     }
 }

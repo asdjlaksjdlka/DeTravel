@@ -43,7 +43,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("测试 APIs")
                 .description("测试api接口文档")
-                .termsOfServiceUrl("https://localhost:8080/detravel")
+                .termsOfServiceUrl("https://39.106.61.39:8080/detravel")
                 .version("1.0")
                 .build();
     }

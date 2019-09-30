@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+dao层接口的全限定名和namespace一样
+dao层接口中的方法名和映射文件中增删改查配置的statement id一致
+方法的参数和配置的输入参数保持一致
+方法的返回值类型和配置中返回类型保持一致
+ -->
+<mapper namespace="com.qf.detravel.dao.UserDao">
+
+    <resultMap id="user" type="com.qf.detravel.entity.User">
+        <id column="u_id" property="uId"></id>
+        <result column="u_name" property="uName"></result>
+        <result column="u_nickname" property="uNickName"></result>
+        <result column="u_email" property="uEmail"></result>
+        <result column="u_password" property="uPassWord"></result>
+        <result column="u_phone" property="uPhone"></result>
+        <result column="u_picture" property="uPicture"></result>
+    </resultMap>
+
+    <select id="findByEmail" resultMap="user" >
+        select * from t_user where u_email = #{email}
+    </select>
+
+
+
+</mapper>

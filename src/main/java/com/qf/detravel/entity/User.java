@@ -1,4 +1,4 @@
-package com.qf.detravel.dao;
+package com.qf.detravel.entity;
 
 public class User {
     private Integer uId;

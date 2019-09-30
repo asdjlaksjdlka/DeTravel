@@ -1,82 +1,85 @@
 package com.qf.detravel.entity;
 
 import java.io.Serializable;
-
+/**
+ * @author Money
+ * Scenic实体类
+ */
 public class Scenic implements Serializable {
-    private Integer Sid;
-    private String Sname;
-    private String Sregion;
-    private String Scountry;
-    private String Shistory;
-    private Integer Vid;
-    private String Purl;
+    private Integer sId;
+    private String sName;
+    private String sRegion;
+    private String sCountry;
+    private String sHistory;
+    private Integer vId;
+    private String pUrl;
 
     public Scenic() {
     }
 
-    public Scenic(Integer sid, String sname, String sregion, String scountry, String shistory, Integer vid, String purl) {
-        Sid = sid;
-        Sname = sname;
-        Sregion = sregion;
-        Scountry = scountry;
-        Shistory = shistory;
-        Vid = vid;
-        Purl = purl;
+    public Scenic(Integer sId, String sName, String sRegion, String sCountry, String sHistory, Integer vId, String pUrl) {
+        this.sId = sId;
+        this.sName = sName;
+        this.sRegion = sRegion;
+        this.sCountry = sCountry;
+        this.sHistory = sHistory;
+        this.vId = vId;
+        this.pUrl = pUrl;
     }
 
-    public Integer getSid() {
-        return Sid;
+    public Integer getsId() {
+        return this.sId;
     }
 
-    public void setSid(Integer sid) {
-        Sid = sid;
+    public void setsId(Integer sId) {
+        this.sId = sId;
     }
 
-    public String getSname() {
-        return Sname;
+    public String getsName() {
+        return this.sName;
     }
 
-    public void setSname(String sname) {
-        Sname = sname;
+    public void setsName(String sName) {
+        this.sName = sName;
     }
 
-    public String getSregion() {
-        return Sregion;
+    public String getsRegion() {
+        return this.sRegion;
     }
 
-    public void setSregion(String sregion) {
-        Sregion = sregion;
+    public void setsRegion(String sRegion) {
+        this.sRegion = sRegion;
     }
 
-    public String getScountry() {
-        return Scountry;
+    public String getsCountry() {
+        return this.sCountry;
     }
 
-    public void setScountry(String scountry) {
-        Scountry = scountry;
+    public void setsCountry(String sCountry) {
+        this.sCountry = sCountry;
     }
 
-    public String getShistory() {
-        return Shistory;
+    public String getsHistory() {
+        return this.sHistory;
     }
 
-    public void setShistory(String shistory) {
-        Shistory = shistory;
+    public void setsHistory(String sHistory) {
+        this.sHistory = sHistory;
     }
 
-    public Integer getVid() {
-        return Vid;
+    public Integer getvId() {
+        return this.vId;
     }
 
-    public void setVid(Integer vid) {
-        Vid = vid;
+    public void setvId(Integer vId) {
+        this.vId = vId;
     }
 
-    public String getPurl() {
-        return Purl;
+    public String getpUrl() {
+        return this.pUrl;
     }
 
-    public void setPurl(String purl) {
-        Purl = purl;
+    public void setpUrl(String pUrl) {
+        this.pUrl = pUrl;
     }
 }

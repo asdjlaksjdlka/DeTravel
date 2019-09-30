@@ -1,43 +1,46 @@
 package com.qf.detravel.entity;
 
 import java.io.Serializable;
-
+/**
+ * @author Money
+ * PhotoCollect实体类
+ */
 public class PhotoCollect implements Serializable {
 
-    private Integer PcId;
-    private Integer Uid;
-    private Integer Pid;
+    private Integer pCId;
+    private Integer uId;
+    private Integer pId;
 
     public PhotoCollect() {
     }
 
-    public PhotoCollect(Integer pcId, Integer uid, Integer pid) {
-        PcId = pcId;
-        Uid = uid;
-        Pid = pid;
+    public PhotoCollect(Integer pCId, Integer uId, Integer pId) {
+        this.pCId = pCId;
+        this.uId = uId;
+        this.pId = pId;
     }
 
-    public Integer getPcId() {
-        return PcId;
+    public Integer getpCId() {
+        return this.pCId;
     }
 
-    public void setPcId(Integer pcId) {
-        PcId = pcId;
+    public void setpCId(Integer pCId) {
+        this.pCId = pCId;
     }
 
-    public Integer getUid() {
-        return Uid;
+    public Integer getuId() {
+        return this.uId;
     }
 
-    public void setUid(Integer uid) {
-        Uid = uid;
+    public void setuId(Integer uId) {
+        this.uId = uId;
     }
 
-    public Integer getPid() {
-        return Pid;
+    public Integer getpId() {
+        return this.pId;
     }
 
-    public void setPid(Integer pid) {
-        Pid = pid;
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
 }

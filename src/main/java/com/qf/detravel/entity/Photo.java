@@ -2,42 +2,46 @@ package com.qf.detravel.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author Money
+ * Photo实体类
+ */
 public class Photo implements Serializable {
 
-    private Integer Pid;
-    private String Purl;
-    private Integer Sid;
+    private Integer pId;
+    private String pUrl;
+    private Integer sId;
 
     public Photo() {
     }
 
-    public Photo(Integer pid, String purl, Integer sid) {
-        Pid = pid;
-        Purl = purl;
-        Sid = sid;
+    public Photo(Integer pId, String pUrl, Integer sId) {
+        this.pId = pId;
+        this.pUrl = pUrl;
+        this.sId = sId;
     }
 
-    public Integer getPid() {
-        return Pid;
+    public Integer getpId() {
+        return this.pId;
     }
 
-    public void setPid(Integer pid) {
-        Pid = pid;
+    public void setpId(Integer pId) {
+        this.pId = pId;
     }
 
-    public String getPurl() {
-        return Purl;
+    public String getpUrl() {
+        return this.pUrl;
     }
 
-    public void setPurl(String purl) {
-        Purl = purl;
+    public void setpUrl(String pUrl) {
+        this.pUrl = pUrl;
     }
 
-    public Integer getSid() {
-        return Sid;
+    public Integer getsId() {
+        return this.sId;
     }
 
-    public void setSid(Integer sid) {
-        Sid = sid;
+    public void setsId(Integer sId) {
+        this.sId = sId;
     }
 }

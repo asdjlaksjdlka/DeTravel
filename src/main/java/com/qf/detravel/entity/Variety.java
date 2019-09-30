@@ -2,41 +2,45 @@ package com.qf.detravel.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author Money
+ * Variety实体类
+ */
 public class Variety implements Serializable {
-    private Integer Vid;
-    private String Vname;
-    private String text;
+    private Integer vId;
+    private String vName;
+    private String vDesc;
 
     public Variety() {
     }
 
-    public Variety(Integer vid, String vname, String text) {
-        Vid = vid;
-        Vname = vname;
-        this.text = text;
+    public Variety(Integer vId, String vName, String vDesc) {
+        this.vId = vId;
+        this.vName = vName;
+        this.vDesc = vDesc;
     }
 
-    public Integer getVid() {
-        return Vid;
+    public Integer getvId() {
+        return this.vId;
     }
 
-    public void setVid(Integer vid) {
-        Vid = vid;
+    public void setvId(Integer vId) {
+        this.vId = vId;
     }
 
-    public String getVname() {
-        return Vname;
+    public String getvName() {
+        return this.vName;
     }
 
-    public void setVname(String vname) {
-        Vname = vname;
+    public void setvName(String vName) {
+        this.vName = vName;
     }
 
-    public String getText() {
-        return text;
+    public String getvDesc() {
+        return this.vDesc;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setvDesc(String vDesc) {
+        this.vDesc = vDesc;
     }
 }

@@ -2,61 +2,65 @@ package com.qf.detravel.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author Money
+ * Dynamic实体类
+ */
 public class Dynamic implements Serializable {
-    private Integer Did;
-    private String Ddesc;
-    private String Dphoto;
-    private String Dtime;
-    private Integer Uid;
+    private Integer dId;
+    private String dDesc;
+    private String dPhoto;
+    private String dTime;
+    private Integer uId;
 
     public Dynamic() {
     }
 
-    public Dynamic(Integer did, String ddesc, String dphoto, String dtime, Integer uid) {
-        Did = did;
-        Ddesc = ddesc;
-        Dphoto = dphoto;
-        Dtime = dtime;
-        Uid = uid;
+    public Dynamic(Integer dId, String dDesc, String dPhoto, String dTime, Integer uId) {
+        this.dId = dId;
+        this.dDesc = dDesc;
+        this.dPhoto = dPhoto;
+        this.dTime = dTime;
+        this.uId = uId;
     }
 
-    public Integer getDid() {
-        return Did;
+    public Integer getdId() {
+        return this.dId;
     }
 
-    public void setDid(Integer did) {
-        Did = did;
+    public void setdId(Integer dId) {
+        this.dId = dId;
     }
 
-    public String getDdesc() {
-        return Ddesc;
+    public String getdDesc() {
+        return this.dDesc;
     }
 
-    public void setDdesc(String ddesc) {
-        Ddesc = ddesc;
+    public void setdDesc(String dDesc) {
+        this.dDesc = dDesc;
     }
 
-    public String getDphoto() {
-        return Dphoto;
+    public String getdPhoto() {
+        return this.dPhoto;
     }
 
-    public void setDphoto(String dphoto) {
-        Dphoto = dphoto;
+    public void setdPhoto(String dPhoto) {
+        this.dPhoto = dPhoto;
     }
 
-    public String getDtime() {
-        return Dtime;
+    public String getdTime() {
+        return this.dTime;
     }
 
-    public void setDtime(String dtime) {
-        Dtime = dtime;
+    public void setdTime(String dTime) {
+        this.dTime = dTime;
     }
 
-    public Integer getUid() {
-        return Uid;
+    public Integer getuId() {
+        return this.uId;
     }
 
-    public void setUid(Integer uid) {
-        Uid = uid;
+    public void setuId(Integer uId) {
+        this.uId = uId;
     }
 }

@@ -1,6 +1,8 @@
 package com.qf.detravel.entity;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private Integer uId;
     private String uName;
     private String uNickName;

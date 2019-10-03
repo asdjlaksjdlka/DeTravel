@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +24,7 @@ public class UserController {
 
     //登录
     @ApiOperation(value="用户登录", notes="根据uEmail和uPassWord来判断用户登录信息是否正确")
-    @RequestMapping("/login.do")
+    @PostMapping("/login.do")
     public JsonResult login(String uEmail, String uPassWord) {
 
         System.out.println(uEmail + "---" + uPassWord);
@@ -39,7 +40,7 @@ public class UserController {
 
     //验证
     @ApiOperation(value="注册时验证昵称和邮箱（不重复）", notes="根据uNickName和uEmail来判断用户信息是否重复")
-    @RequestMapping(path = "/check.do")
+    @PostMapping(path = "/check.do")
     public JsonResult check(String uNickName, String uEmail) {
         System.out.println(uNickName+"---"+uEmail);
 
@@ -57,7 +58,7 @@ public class UserController {
 
     //注册
     @ApiOperation(value="注册(添加用户)", notes="根据“user”来添加一个用户")
-    @RequestMapping(path = "/singIn.do")
+    @PostMapping(path = "/singIn.do")
     public JsonResult singIn(User user) {
         System.out.println(user);
 

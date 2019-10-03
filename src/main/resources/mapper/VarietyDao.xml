@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.detravel.dao.VarietyDao">
+    <resultMap id="variety" type="com.qf.detravel.entity.Variety">
+        <id column="v_id"  property="vId"/>
+        <result column="v_name" property="vName"/>
+        <result column="v_desc" property="vDesc"/>
+    </resultMap>
+
+    <select id="findAllVariety" resultMap="variety">
+        select * from t_variety
+    </select>
+</mapper>

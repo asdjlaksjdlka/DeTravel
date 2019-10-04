@@ -98,9 +98,10 @@ public class UserController {
     }
 
     //修改用户信息
-    @RequestMapping("/updateByUserId.do")
+    @ApiOperation(value="修改用户信息", notes="根据用户id修改用户信息")
+    @PostMapping(path = "/updateByUserId.do")
     public JsonResult updateByUserId(Integer uId){
-        userService.updateByUserId(uId);
-        return new JsonResult(1,"修改信息成功");
+        User u= userService.updateByUserId(uId);
+        return new JsonResult(1,u);
     }
 }

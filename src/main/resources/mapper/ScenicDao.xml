@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.qf.detravel.dao.ScenicDao">
+    <resultMap id="scenicMap" type="com.qf.detravel.entity.Scenic">
+        <id column="s_id" property="sId"></id>
+        <result column="s_name" property="sName"></result>
+        <result column="s_region" property="sRegion"></result>
+        <result column="s_country" property="sCountry"></result>
+        <result column="s_desc" property="sDesc"></result>
+        <result column="s_history" property="sHistory"></result>
+        <result column="p_url" property="pUrl"></result>
+        <result column="v_id" property="vId"></result>
+    </resultMap>
+
+    <select id="findCountry" resultMap="scenicMap">
+        select distinct s_country from t_scenic where s_region = #{sRegion}
+    </select>
+
+    <select id="findSName" resultMap="scenicMap">
+        SELECT DISTINCT s_name  from t_scenic WHERE s_country = #{sCountry}
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT COUNT(*) FROM t_scenic WHERE s_country = #{sCountry}
+    </select>
+
+    <select id="findScenic" resultMap="scenicMap">
+        select s_desc, s_history, p_url from t_scenic where s_id = #{sId}
+    </select>
+</mapper>

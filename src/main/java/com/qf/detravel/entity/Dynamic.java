@@ -1,6 +1,7 @@
 package com.qf.detravel.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Money
@@ -10,18 +11,15 @@ public class Dynamic implements Serializable {
     private Integer dId;
     private String dDesc;
     private String dPhoto;
-    private String dTime;
+    private Date dTime;
     private Integer uId;
 
-    public Dynamic() {
+    public Date getdTime() {
+        return dTime;
     }
 
-    public Dynamic(Integer dId, String dDesc, String dPhoto, String dTime, Integer uId) {
-        this.dId = dId;
-        this.dDesc = dDesc;
-        this.dPhoto = dPhoto;
+    public void setdTime(Date dTime) {
         this.dTime = dTime;
-        this.uId = uId;
     }
 
     public Integer getdId() {
@@ -46,14 +44,6 @@ public class Dynamic implements Serializable {
 
     public void setdPhoto(String dPhoto) {
         this.dPhoto = dPhoto;
-    }
-
-    public String getdTime() {
-        return this.dTime;
-    }
-
-    public void setdTime(String dTime) {
-        this.dTime = dTime;
     }
 
     public Integer getuId() {

@@ -11,18 +11,20 @@ public class Scenic implements Serializable {
     private String sRegion;
     private String sCountry;
     private String sHistory;
+    private String sDesc;
     private Integer vId;
     private String pUrl;
 
     public Scenic() {
     }
 
-    public Scenic(Integer sId, String sName, String sRegion, String sCountry, String sHistory, Integer vId, String pUrl) {
+    public Scenic(Integer sId, String sName, String sRegion, String sCountry, String sHistory, String sDesc, Integer vId, String pUrl) {
         this.sId = sId;
         this.sName = sName;
         this.sRegion = sRegion;
         this.sCountry = sCountry;
         this.sHistory = sHistory;
+        this.sDesc = sDesc;
         this.vId = vId;
         this.pUrl = pUrl;
     }
@@ -65,6 +67,14 @@ public class Scenic implements Serializable {
 
     public void setsHistory(String sHistory) {
         this.sHistory = sHistory;
+    }
+
+    public String getsDesc() {
+        return this.sDesc;
+    }
+
+    public void setsDesc(String sDesc) {
+        this.sDesc = sDesc;
     }
 
     public Integer getvId() {

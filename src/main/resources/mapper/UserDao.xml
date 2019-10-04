@@ -32,6 +32,11 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         insert into t_user(u_name,u_nickname,u_email,u_password) values (#{uName},#{uNickName},#{uEmail},#{uPassWord})
     </insert>
 
+    <update id="updateByUserId" parameterType="user">
+		update user set u_name=#{uName},u_nickname=#{uNickName},u_email=#{uEmail},u_password=#{uPassWord},u_phone=#{uPhone} where u_id=#{uId}
+	</update>
+
+
 
 
 </mapper>

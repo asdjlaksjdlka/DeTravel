@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
         response.setHeader("Access-Control-Allow-Headers", "*");
         //请求方式
         response.setHeader("Access-Control-Allow-Methods", "OPTIONS,GET,POST,DELETE,PUT");
-
+        //cookie跨域的操作
         response.setHeader("Access-Control-Allow-Credentials", "true");
         filterChain.doFilter(servletRequest,servletResponse);
     }

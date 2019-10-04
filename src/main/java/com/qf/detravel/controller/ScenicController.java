@@ -63,7 +63,6 @@ public class ScenicController {
      */
     @RequestMapping("/scenic.do")
     public JsonResult findScenic(Integer id) {
-        id = 1;
         Scenic scenic = scenicService.findScenic(id);
         return new JsonResult(1, scenic);
     }

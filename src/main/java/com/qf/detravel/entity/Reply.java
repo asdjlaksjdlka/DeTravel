@@ -18,7 +18,7 @@ public class Reply implements Serializable {
     @ApiModelProperty(value = "该条回复对用的评论id",name = "toUid")
     private Integer toUid;
     @ApiModelProperty(value = "回复的内容,需要前端获取",name = "content",example = "针对某条评论的回复")
-    private String content;
+    private String r_content;
     @ApiModelProperty(value = "回复时间，后端自动生成",name = "replyTime",example = "2019")
     private Date replyTime;
 
@@ -30,7 +30,7 @@ public class Reply implements Serializable {
                 ", cId=" + cId +
                 ", fromUid=" + fromUid +
                 ", toUid=" + toUid +
-                ", content='" + content + '\'' +
+                ", content='" + r_content + '\'' +
                 ", replyTime=" + replyTime +
                 '}';
     }
@@ -75,12 +75,12 @@ public class Reply implements Serializable {
         this.toUid = toUid;
     }
 
-    public String getContent() {
-        return content;
+    public String getR_content() {
+        return r_content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setR_content(String r_content) {
+        this.r_content = r_content;
     }
 
     public Date getReplyTime() {

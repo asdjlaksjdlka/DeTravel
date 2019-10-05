@@ -41,7 +41,7 @@
 		<collection property="comment" ofType="com.qf.detravel.entity.Comment">
 			<id column="c_id" property="cId" />
 			<result column="Did" property="dId"/>
-			<result column="content" property="content"/>
+			<result column="c_content" property="c_content"/>
 			<result column="from_uid" property="fromUid"/>
 			<result column="commentTime" property="commentTime"/>
 
@@ -51,7 +51,7 @@
 				<result column="Cid" property="cId"/>
 				<result column="from_uid" property="fromUid"/>
 				<result column="to_uid" property="toUid"/>
-				<result column="content" property="content"/>
+				<result column="r_content" property="r_content"/>
 				<result column="replyTime" property="replyTime"/>
 			</collection>
 		</collection>

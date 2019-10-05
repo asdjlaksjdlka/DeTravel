@@ -32,6 +32,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     //登录
     @ApiOperation(value="用户登录", notes="根据uEmail和uPassWord来判断用户登录信息是否正确，正确返回token")
     @PostMapping("/login.do")
@@ -42,7 +43,7 @@ public class UserController {
         try {
             User user = userService.findByEmail(uEmail, uPassWord);
             //生成token
-            String token = MD5Utils.md5(uEmail + "haha");
+            String token = MD5Utils.md5(user.getuId() + "haha");
             // 将token放到redis中
             stringRedisTemplate.opsForValue().set(token,user.getuId().toString());
 

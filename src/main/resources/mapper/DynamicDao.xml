@@ -3,16 +3,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.detravel.dao.DynamicDao">
     <resultMap id="dynamic" type="com.qf.detravel.entity.Dynamic">
-        <id column="d_id" property="dId"/>
-        <result column="d_desc" property="dDesc"/>
-        <result column="d_photo" property="dPhoto"/>
-        <result column="d_time" property="dTime"/>
+        <id column="d_country" property="dCountry"/>
         <result column="u_id" property="uId"/>
+        <result column="p_id" property="pId"/>
+        <result column="" property=""/>
+        <association property="photo"  javaType="com.qf.detravel.entity.Photo"
+                     column="p_id" select="com.qf.detravel.dao.PhotoDao.findByPId">
+            <id column="p_id" property="pId"/>
+            <result column="p_url" property="pUrl"/>
+            <result column="s_id" property="sId"/>
+        </association>
     </resultMap>
 
-    <insert id="insertDynamic">
-        insert into t_dynamic (d_desc,d_photo,d_time,u_id) values (#{dDesc},#{dPhoto},#{dTime},#{uId})
-    </insert>
+    <select id=""
+
 
 
 </mapper>

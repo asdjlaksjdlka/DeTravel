@@ -36,6 +36,9 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
 		update user set u_name=#{uName},u_nickname=#{uNickName},u_email=#{uEmail},u_password=#{uPassWord},u_phone=#{uPhone} where u_id=#{uId}
 	</update>
 
+    <select id="showUser" resultMap="user">
+        select * from t_user where u_id = #{id}
+    </select>
 
 
 

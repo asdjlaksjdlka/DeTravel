@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+dao层接口的全限定名和namespace一样
+dao层接口中的方法名和映射文件中增删改查配置的statement id一致
+方法的参数和配置的输入参数保持一致
+方法的返回值类型和配置中返回类型保持一致
+ -->
+<mapper namespace="com.qf.detravel.dao.FlightDao">
+
+    <resultMap id="flight" type="com.qf.detravel.entity.Flight">
+        <id column="f_id"                          property="fId"></id>
+        <result column="f_airline"                 property="fAirline"></result>
+        <result column="f_departure_city"          property="fDepartureCity"></result>
+        <result column="f_departure_airport"       property="fDepartureAirport"></result>
+        <result column="f_departure_airport_short" property="fDepartureAirportShort"></result>
+        <result column="f_arrival_city"            property="fArrivalCity"></result>
+        <result column="f_arrival_airport"         property="fArrivalAirport"></result>
+        <result column="f_arrival_airport_short"   property="fArrivalAirportShort"></result>
+        <result column="f_departure_time"          property="fDepartureTime"></result>
+        <result column="f_arrival_time"            property="fArrivalTime"></result>
+        <result column="f_price"                   property="fPrice"></result>
+    </resultMap>
+
+
+    <resultMap id="flight1" type="com.qf.detravel.entity.FlightTransit">
+        <association property="beginFlight" javaType="com.qf.detravel.entity.Flight">
+            <id column="b_id"                          property="fId"></id>
+            <result column="b_airline"                 property="fAirline"></result>
+            <result column="b_departure_city"          property="fDepartureCity"></result>
+            <result column="b_departure_airport"       property="fDepartureAirport"></result>
+            <result column="b_departure_airport_short" property="fDepartureAirportShort"></result>
+            <result column="b_arrival_city"            property="fArrivalCity"></result>
+            <result column="b_arrival_airport"         property="fArrivalAirport"></result>
+            <result column="b_arrival_airport_short"   property="fArrivalAirportShort"></result>
+            <result column="b_departure_time"          property="fDepartureTime"></result>
+            <result column="b_arrival_time"            property="fArrivalTime"></result>
+            <result column="b_price"                   property="fPrice"></result>
+        </association>
+
+        <association property="endFlight" javaType="com.qf.detravel.entity.Flight">
+            <result column="e_id"                      property="fId"></result>
+            <result column="e_airline"                 property="fAirline"></result>
+            <result column="e_departure_city"          property="fDepartureCity"></result>
+            <result column="e_departure_airport"       property="fDepartureAirport"></result>
+            <result column="e_departure_airport_short" property="fDepartureAirportShort"></result>
+            <result column="e_arrival_city"            property="fArrivalCity"></result>
+            <result column="e_arrival_airport"         property="fArrivalAirport"></result>
+            <result column="e_arrival_airport_short"   property="fArrivalAirportShort"></result>
+            <result column="e_departure_time"          property="fDepartureTime"></result>
+            <result column="e_arrival_time"            property="fArrivalTime"></result>
+            <result column="e_price"                   property="fPrice"></result>
+        </association>
+
+
+    </resultMap>
+
+    <select id="findAllNonstop" resultMap="flight" >
+        SELECT * FROM t_flight AS `begin`
+        WHERE
+        `begin`.f_departure_city = #{fDepartureCity} AND
+        `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY) AND
+        `begin`.f_arrival_city = #{fArrivalCity} AND
+        `begin`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
+    </select>
+
+
+    <select id="findAllTransit" resultMap="flight1" >
+        SELECT
+        `begin`.f_id                      AS b_id,
+        `begin`.f_airline                 AS b_airline,
+        `begin`.f_departure_city          AS b_departure_city,
+        `begin`.f_departure_airport       AS b_departure_airport,
+        `begin`.f_departure_airport_short AS b_departure_airport_short,
+        `begin`.f_arrival_city            AS b_arrival_city,
+        `begin`.f_arrival_airport         AS b_arrival_airport,
+        `begin`.f_arrival_airport_short   AS b_arrival_airport_short,
+        `begin`.f_departure_time          AS b_departure_time,
+        `begin`.f_arrival_time            AS b_arrival_time,
+        `begin`.f_price                   AS b_price,
+        `end`.f_id                        AS e_id,
+        `end`.f_airline                   AS e_airline,
+        `end`.f_departure_city            AS e_departure_city,
+        `end`.f_departure_airport         AS e_departure_airport,
+        `end`.f_departure_airport_short   AS e_departure_airport_short,
+        `end`.f_arrival_city              AS e_arrival_city,
+        `end`.f_arrival_airport           AS e_arrival_airport,
+        `end`.f_arrival_airport_short     AS e_arrival_airport_short,
+        `end`.f_departure_time            AS e_departure_time,
+        `end`.f_arrival_time              AS e_arrival_time,
+        `end`.f_price                     AS e_price
+        FROM
+        t_flight AS `begin` ,
+        t_flight AS `end`
+        WHERE
+        `begin`.f_departure_city = #{fDepartureCity} AND
+        `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY)
+        AND `begin`.f_arrival_time &lt; `end`.f_departure_time
+        AND `end`.f_arrival_city = #{fArrivalCity}
+        AND `end`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
+
+    </select>
+
+
+
+</mapper>

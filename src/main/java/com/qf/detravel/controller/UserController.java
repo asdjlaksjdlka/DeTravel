@@ -1,7 +1,6 @@
 package com.qf.detravel.controller;
 
 import com.qf.detravel.common.JsonResult;
-import com.qf.detravel.dao.UserDao;
 import com.qf.detravel.entity.User;
 import com.qf.detravel.service.UserService;
 import com.qf.detravel.utils.MD5Utils;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import sun.applet.Main;
 
 import java.util.concurrent.TimeUnit;
 

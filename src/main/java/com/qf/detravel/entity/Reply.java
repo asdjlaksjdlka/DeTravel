@@ -5,11 +5,10 @@ import java.util.Date;
 
 public class Reply implements Serializable {
     private Integer rId;
-    private Integer commentId;
-    private Integer replyId;
-    private String replyType;
+    private Integer dId;
+    private Integer cId;
     private Integer fromUid;
-    private String toUid;
+    private Integer toUid;
     private String content;
     private Date replyTime;
 
@@ -17,22 +16,13 @@ public class Reply implements Serializable {
     public String toString() {
         return "Reply{" +
                 "rId=" + rId +
-                ", commentId=" + commentId +
-                ", replyId=" + replyId +
-                ", replyType='" + replyType + '\'' +
+                ", dId=" + dId +
+                ", cId=" + cId +
                 ", fromUid=" + fromUid +
-                ", toUid='" + toUid + '\'' +
+                ", toUid=" + toUid +
                 ", content='" + content + '\'' +
                 ", replyTime=" + replyTime +
                 '}';
-    }
-
-    public Date getReplyTime() {
-        return replyTime;
-    }
-
-    public void setReplyTime(Date replyTime) {
-        this.replyTime = replyTime;
     }
 
     public Integer getrId() {
@@ -43,28 +33,20 @@ public class Reply implements Serializable {
         this.rId = rId;
     }
 
-    public Integer getCommentId() {
-        return commentId;
+    public Integer getdId() {
+        return dId;
     }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
+    public void setdId(Integer dId) {
+        this.dId = dId;
     }
 
-    public Integer getReplyId() {
-        return replyId;
+    public Integer getcId() {
+        return cId;
     }
 
-    public void setReplyId(Integer replyId) {
-        this.replyId = replyId;
-    }
-
-    public String getReplyType() {
-        return replyType;
-    }
-
-    public void setReplyType(String replyType) {
-        this.replyType = replyType;
+    public void setcId(Integer cId) {
+        this.cId = cId;
     }
 
     public Integer getFromUid() {
@@ -75,11 +57,11 @@ public class Reply implements Serializable {
         this.fromUid = fromUid;
     }
 
-    public String getToUid() {
+    public Integer getToUid() {
         return toUid;
     }
 
-    public void setToUid(String toUid) {
+    public void setToUid(Integer toUid) {
         this.toUid = toUid;
     }
 
@@ -89,5 +71,13 @@ public class Reply implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getReplyTime() {
+        return replyTime;
+    }
+
+    public void setReplyTime(Date replyTime) {
+        this.replyTime = replyTime;
     }
 }

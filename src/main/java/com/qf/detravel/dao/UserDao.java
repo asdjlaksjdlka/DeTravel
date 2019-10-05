@@ -8,9 +8,10 @@ public interface UserDao {
 
     User findByUNickName(String uNickName);
 
-    User updateByUserId(Integer uId);
+    void updateByUserId(User user);
 
     void add(User user);
+    Integer findEmailCount(String uEmail);
 
 
 

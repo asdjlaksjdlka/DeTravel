@@ -11,8 +11,8 @@ import java.util.List;
 public class Dynamic implements Serializable {
     private Integer dId;
     private String dDesc;
-    private String dPhoto;
-    private Date dTime;
+    private String dCountry;
+    private Date pId;
     private Integer uId;
 
     private List<Comment> comment;
@@ -22,8 +22,8 @@ public class Dynamic implements Serializable {
         return "Dynamic{" +
                 "dId=" + dId +
                 ", dDesc='" + dDesc + '\'' +
-                ", dPhoto='" + dPhoto + '\'' +
-                ", dTime=" + dTime +
+                ", dCountry='" + dCountry + '\'' +
+                ", pId=" + pId +
                 ", uId=" + uId +
                 ", comment=" + comment +
                 '}';
@@ -45,20 +45,20 @@ public class Dynamic implements Serializable {
         this.dDesc = dDesc;
     }
 
-    public String getdPhoto() {
-        return dPhoto;
+    public String getdCountry() {
+        return dCountry;
     }
 
-    public void setdPhoto(String dPhoto) {
-        this.dPhoto = dPhoto;
+    public void setdCountry(String dCountry) {
+        this.dCountry = dCountry;
     }
 
-    public Date getdTime() {
-        return dTime;
+    public Date getpId() {
+        return pId;
     }
 
-    public void setdTime(Date dTime) {
-        this.dTime = dTime;
+    public void setpId(Date pId) {
+        this.pId = pId;
     }
 
     public Integer getuId() {

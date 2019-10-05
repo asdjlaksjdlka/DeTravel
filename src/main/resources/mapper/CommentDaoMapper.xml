@@ -69,7 +69,7 @@
         ) tmp
         LEFT JOIN r_reply rr ON tmp.c_id = rr.Cid
         WHERE
-        u_id = 1
+        u_id = #{uid}
     </select>
 
  </mapper>

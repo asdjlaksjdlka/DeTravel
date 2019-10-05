@@ -6,6 +6,7 @@ import com.qf.detravel.service.UserService;
 import com.qf.detravel.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -43,7 +44,7 @@ public class UserController {
             //生成token
             String token = MD5Utils.md5(uEmail + "haha");
             // 将token放到redis中
-            stringRedisTemplate.opsForValue().set(token, uEmail);
+            stringRedisTemplate.opsForValue().set(token,user.getuId().toString());
 
             stringRedisTemplate.expire(token, 30, TimeUnit.MINUTES);
             // 将token发送给前端
@@ -100,10 +101,15 @@ public class UserController {
     }
 
     //修改用户信息
-    @ApiOperation(value="修改用户信息", notes="根据用户id修改用户信息")
+    @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
-    public JsonResult updateByUserId(Integer uId){
-        User u= userService.updateByUserId(uId);
-        return new JsonResult(1,u);
+    public JsonResult updateByUserId(User user){
+
+        userService.updateByUserId(user);
+
+        if (userService.findEmailCount(user.getuEmail()) > 1){
+            return new JsonResult(0,"邮箱昵称重复，请重新输入！");
+        }
+        return new JsonResult(1,"修改用户信息成功");
     }
 }

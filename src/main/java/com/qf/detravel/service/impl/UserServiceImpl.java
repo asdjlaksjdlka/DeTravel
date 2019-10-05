@@ -27,14 +27,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateByUserId(Integer uId) {
-       return userDao.updateByUserId(uId);
+    public void updateByUserId(User user) {
+        userDao.updateByUserId(user);
+
     }
 
     //添加用户
     @Override
     public void add(User user) {
         userDao.add(user);
+    }
+
+    @Override
+    public Integer findEmailCount(String uEmail) {
+        return userDao.findEmailCount(uEmail);
     }
 
     //注册验证，昵称，邮箱不能重复

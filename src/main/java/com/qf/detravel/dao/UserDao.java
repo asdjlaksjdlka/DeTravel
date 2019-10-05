@@ -8,6 +8,8 @@ public interface UserDao {
 
     User findByUNickName(String uNickName);
 
+    User updateByUserId(Integer uId);
+
     void add(User user);
 
 

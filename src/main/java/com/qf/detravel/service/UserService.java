@@ -7,6 +7,8 @@ public interface UserService {
 
     User findByEmail(String uEmail,String uPassWord);
 
+    User updateByUserId(Integer uId);
+
     void add(User user);
 
     //注册验证，邮箱和昵称不能重复

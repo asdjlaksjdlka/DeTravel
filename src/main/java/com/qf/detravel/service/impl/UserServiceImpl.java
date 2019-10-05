@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Autowired(required = false)
     UserDao userDao;
 
     //登录
@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
         }else {
             return user;
         }
+    }
+
+    @Override
+    public User updateByUserId(Integer uId) {
+       return userDao.updateByUserId(uId);
     }
 
     //添加用户

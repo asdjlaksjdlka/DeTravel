@@ -1,6 +1,8 @@
 package com.qf.detravel.entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Money
@@ -10,22 +12,25 @@ public class Dynamic implements Serializable {
     private Integer dId;
     private String dDesc;
     private String dPhoto;
-    private String dTime;
+    private Date dTime;
     private Integer uId;
 
-    public Dynamic() {
-    }
+    private List<Comment> comment;
 
-    public Dynamic(Integer dId, String dDesc, String dPhoto, String dTime, Integer uId) {
-        this.dId = dId;
-        this.dDesc = dDesc;
-        this.dPhoto = dPhoto;
-        this.dTime = dTime;
-        this.uId = uId;
+    @Override
+    public String toString() {
+        return "Dynamic{" +
+                "dId=" + dId +
+                ", dDesc='" + dDesc + '\'' +
+                ", dPhoto='" + dPhoto + '\'' +
+                ", dTime=" + dTime +
+                ", uId=" + uId +
+                ", comment=" + comment +
+                '}';
     }
 
     public Integer getdId() {
-        return this.dId;
+        return dId;
     }
 
     public void setdId(Integer dId) {
@@ -33,7 +38,7 @@ public class Dynamic implements Serializable {
     }
 
     public String getdDesc() {
-        return this.dDesc;
+        return dDesc;
     }
 
     public void setdDesc(String dDesc) {
@@ -41,26 +46,34 @@ public class Dynamic implements Serializable {
     }
 
     public String getdPhoto() {
-        return this.dPhoto;
+        return dPhoto;
     }
 
     public void setdPhoto(String dPhoto) {
         this.dPhoto = dPhoto;
     }
 
-    public String getdTime() {
-        return this.dTime;
+    public Date getdTime() {
+        return dTime;
     }
 
-    public void setdTime(String dTime) {
+    public void setdTime(Date dTime) {
         this.dTime = dTime;
     }
 
     public Integer getuId() {
-        return this.uId;
+        return uId;
     }
 
     public void setuId(Integer uId) {
         this.uId = uId;
+    }
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
     }
 }

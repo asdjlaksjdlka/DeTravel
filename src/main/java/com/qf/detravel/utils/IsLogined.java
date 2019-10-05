@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class IsLogined {
 
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private  StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IsLogined isLogined;
@@ -22,7 +22,7 @@ public class IsLogined {
             //如果获取的id为空，则没有登录
             return false;
         }else {
-            String token2 = MD5Utils.md5(id);
+            String token2 = MD5Utils.md5(id+ "haha");
             if (token.equals(token2)){
                 //如果根据id生成的token2和相同，
                 return true;

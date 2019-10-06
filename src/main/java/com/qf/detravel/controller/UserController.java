@@ -11,8 +11,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 
@@ -24,10 +28,12 @@ import java.util.concurrent.TimeUnit;
 @ResponseBody
 public class UserController {
 
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserService userService;
+
 
     //登录
     @ApiOperation(value="用户登录", notes="根据uEmail和uPassWord来判断用户登录信息是否正确，正确返回token")
@@ -50,8 +56,12 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult(0, e.getMessage());
+
+
         }
     }
+
+
 
 
     //注册
@@ -70,25 +80,44 @@ public class UserController {
             e.printStackTrace();
             return new JsonResult(0,e.getMessage());
         }
+
+
+
     }
 
     //修改用户信息
     @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
-    public JsonResult updateByUserId(User user){
-        try {
-            userService.findUNickName(user);
+    public JsonResult updateByUserId(User user, MultipartFile upload){
 
-        } catch (RuntimeException e) {
-            new JsonResult<String>(0,"修改失败");
+        System.out.println("springmvc文件上传，，，，");
+        //上传位置
+        String path = "/usr/local/tomcat/webapps/images";
+        //判断路径是否存在
+        File file = new File(path);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        //说明上传文件项
+        //获取上传文件的名称
+        String filename = upload.getOriginalFilename();
+        // 把文件的名称设置唯一值，uuid
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        filename = uuid+"_"+filename;
+        // 完成文件上传
+        try {
+            upload.transferTo(new File(path,filename));
+            user.setuPicture(path+filename);
+            userService.updateByUserId(user);
+            return new JsonResult(1,"修改用户信息成功");
+        } catch (Exception e) {
+            return new JsonResult<String>(0,"修改失败");
         }
 
-        userService.updateByUserId(user);
-
-        User user1 = userService.findByIdUser(user.getuId());
 
 
-        return new JsonResult(1,"修改用户信息成功");
+
+
     }
 
     @ApiOperation(value = "查询用户信息",notes = "查询用户信息")
@@ -97,13 +126,38 @@ public class UserController {
         User user = userService.findByIdUser(uid);
         return new JsonResult(1, user);
     }
-//    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
-//    @GetMapping("/findPicture.do")
-//    public JsonResult findPicture(Integer uId){
-//        String picture = userService.findPicture(uId);
-//        System.out.println("springmvc文件上传，，，，");
-//
-//
-//    }
+
+
+    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
+    @PostMapping("/findPicture.do")
+    public JsonResult findPicture(Integer uId,MultipartFile upload){
+        String picture = userService.findPicture(uId);
+
+        System.out.println("springmvc文件上传，，，，");
+        //上传位置
+        String path = "D:\\picture";
+        //判断路径是否存在
+        File file = new File(path);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+        //说明上传文件项
+        //获取上传文件的名称
+        String filename = upload.getOriginalFilename();
+        // 把文件的名称设置唯一值，uuid
+        String uuid = UUID.randomUUID().toString().replace("-", "");
+        filename = uuid+"_"+filename;
+        // 完成文件上传
+        try {
+            upload.transferTo(new File(path,filename));
+            return new JsonResult(1,"上传成功");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new JsonResult(0,"上传失败");
+
+        }
+
+    }
 
 }

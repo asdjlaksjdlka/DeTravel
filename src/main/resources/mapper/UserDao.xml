@@ -56,8 +56,9 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
             <if test="uPhone != null">
                 u_phone = #{uPhone},
             </if>
-
-
+            <if test="uPicture != null">
+                u_picture = #{uPicture},
+            </if>
 
         </set>
         where u_id = #{uId}

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.swagger.readers.operation.SwaggerResponseMessageReader;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -67,10 +66,10 @@ public class CommentController {
     @ApiOperation(value="通知页面数据显示",
             notes="返回list集合，包括关注、评论等,toUser：评论某个用户的id；nContent：通知的评论内容；fromUser：评论来自哪个用户的id；nType：1、点赞；2、关注；3、评论；nTime：通知的时间;User:User对象的所有属性，均可通过user(对象).属性获得，比如user.uName")
     @GetMapping("/showNotification")
-    public JsonResult showNotification(HttpServletRequest request,Integer uid){
+    public JsonResult showNotification(HttpServletRequest request){
         String token = request.getHeader("token");
 
-//        int uid = isLogined.getUserId(token);
+        int uid = isLogined.getUserId(token);
         List<Notification> list = commentService.showNotificationByUid(uid);
         return new JsonResult(1,list);
     }

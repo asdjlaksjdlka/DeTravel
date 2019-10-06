@@ -9,11 +9,5 @@ import org.springframework.stereotype.Service;
 @Service
 public class DynamicServiceImpl implements DynamicService {
 
-    @Autowired
-    DynamicDao dynamicDao;
 
-    @Override
-    public void insertDynamic(Dynamic dynamic) {
-        dynamicDao.insertDynamic(dynamic);
-    }
 }

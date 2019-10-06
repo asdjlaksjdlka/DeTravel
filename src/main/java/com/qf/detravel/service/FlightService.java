@@ -1,13 +1,13 @@
 package com.qf.detravel.service;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 public interface FlightService {
 
     // 查询所有搜索条件(出发城市，到达城市，航空公司)
-    List findAllQuery();
+    Map findAllQuery();
 
     // 查询所有符合条件航班
-    List findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline);
+    Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline);
 }

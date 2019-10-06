@@ -23,22 +23,6 @@ public class DynamicController {
     @Autowired
     DynamicService dynamicService;
 
-    @PostMapping("/dynamic.do")
-    public JsonResult insertDynamic(MultipartFile file, Dynamic dynamic) throws Exception {
 
-        String path ="/usr/local/tomcat/webapps/images";
-        File pare = new File(path);
-
-        String rand = UUID.randomUUID().toString().replace("-","");
-        String name = file.getOriginalFilename();
-        name = rand + "_" +name;
-
-        file.transferTo(new File(pare,name));
-        //设置时间
-//        dynamic.setdTime(new Date());
-//        dynamic.setdPhoto(name);
-        dynamicService.insertDynamic(dynamic);
-        return new JsonResult(1,dynamic);
-    }
 
 }

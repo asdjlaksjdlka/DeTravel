@@ -13,11 +13,15 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -51,8 +55,10 @@ public class UserController {
 
             stringRedisTemplate.expire(token, 30, TimeUnit.MINUTES);
             // 将token发送给前端
-
-            return new JsonResult(1, token);
+            Map map  = new HashMap();
+            map.put("token",token);
+            map.put("user",user);
+            return new JsonResult(1, map);
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult(0, e.getMessage());
@@ -108,6 +114,20 @@ public class UserController {
         }
     }
 
+
+    @GetMapping("/showUserHomePage.do")
+    public JsonResult<Map> showUserHomePage(Integer uId){
+        Map map = userService.showUserHomePage(uId);
+        return new JsonResult<Map>(1,map);
+
+    }
+
+    @GetMapping("/insertAttention.do")
+    public JsonResult insertAttention(Integer uid,Integer uId){
+        userService.insertAttention(uid,uId);
+        return new JsonResult(1,"关注成功");
+    }
+
     @ApiOperation(value = "查询用户信息",notes = "查询用户信息")
     @GetMapping("/findUser.do")
     public JsonResult findUser(HttpServletRequest request) {
@@ -119,36 +139,15 @@ public class UserController {
         return new JsonResult(1, user);
     }
 
-    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
-    @PostMapping("/findPicture.do")
-    public JsonResult findPicture(Integer uId,MultipartFile upload){
-        String picture = userService.findPicture(uId);
-
-        System.out.println("springmvc文件上传，，，，");
-        //上传位置
-        String path = "D:\\picture";
-        //判断路径是否存在
-        File file = new File(path);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-        //说明上传文件项
-        //获取上传文件的名称
-        String filename = upload.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
-        try {
-            upload.transferTo(new File(path,filename));
-            return new JsonResult(1,"上传成功");
-
-        } catch (IOException e) {
+    @PostMapping("/resetPassword")
+    public JsonResult  resetPassword(String uName,String uNickName,String uEmail){
+        try{
+            userService.resetPassword(uName,uNickName,uEmail);
+            return new JsonResult(1,"发送成功");
+        }catch (Exception e){
             e.printStackTrace();
-            return new JsonResult(0,"上传失败");
-
+            return new JsonResult(0,e.getMessage());
         }
-
     }
 
 }

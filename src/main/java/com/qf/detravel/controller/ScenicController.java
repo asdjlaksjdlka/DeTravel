@@ -3,13 +3,17 @@ package com.qf.detravel.controller;
 import com.qf.detravel.common.JsonResult;
 import com.qf.detravel.entity.Scenic;
 import com.qf.detravel.service.ScenicService;
+import com.qf.detravel.vo.ScenicVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+import java.util.Map;
+@Api(description ="景点信息展示")
 @RestController
 @ServletComponentScan
 public class ScenicController {
@@ -18,52 +22,28 @@ public class ScenicController {
      */
     @Autowired
     private ScenicService scenicService;
-
-    /**
-     * 这是根据地区获取所有国家名称
-     *
-     * @param region 需要的是地区名称
-     * @return 返回的是JsonResult统一处理
-     */
-    @RequestMapping("/listCountry.do")
-    public JsonResult findCountry(String region) {
-        List<String> country = scenicService.findCountry(region);
-        return new JsonResult(1, country);
+    @ApiOperation(value="查询所有的景点信息", notes="根据分类id和地区来查询所有的景点信息")
+    @GetMapping("/allScenic.do")
+    public JsonResult findAllScenic(Integer vId, String region){
+        List<Scenic> allScenic = scenicService.findAllScenic(vId, region);
+        return new JsonResult(1, allScenic);
     }
-
-    /**
-     * 这是根据国家名称获取所有的景点名称
-     *
-     * @param country 需要的是国家名称
-     * @return 返回的是JsonResult统一处理
-     */
-    @RequestMapping("/listSName.do")
-    public JsonResult findSname(String country) {
-
-        List<String> sname = scenicService.findSName(country);
-        return new JsonResult(1, sname);
+    @ApiOperation(value="查询地区所属国家所有的景点信息", notes="根据分类id，地区和国家来查询所有的景点信息")
+    @GetMapping("/countryScenic.do")
+    public JsonResult findAllByCountry(Integer vId, String region, String country) {
+        List<Scenic> allByCountry = scenicService.findAllByCountry(vId, region, country);
+        return new JsonResult(1, allByCountry);
     }
-
-    /**
-     * 这是根据国家名称获取所有的景点个数
-     *
-     * @param country 需要的是国家名称
-     * @return 返回的是JsonResult统一处理
-     */
-    @RequestMapping("/count.do")
-    public JsonResult sNameCount(String country) {
-        Integer count = scenicService.count(country);
-        return new JsonResult(1, count);
+    @ApiOperation(value="查询地区所属国家和国家内景点个数", notes="根据分类id，地区和国家来查询所有的景点信息")
+    @GetMapping("/scenicCount.do")
+    public JsonResult findCountryCount(Integer vId, String region, String country) {
+        Map<String, Integer> map = scenicService.findCountryCount(vId, region, country);
+        return new JsonResult(1, map);
     }
-
-    /**
-     * 这是根据id查找景点信息的方法
-     * @param id 需要的是id号
-     * @return 返回的是景点信息
-     */
-    @RequestMapping("/scenic.do")
-    public JsonResult findScenic(Integer id) {
-        Scenic scenic = scenicService.findScenic(id);
-        return new JsonResult(1, scenic);
+    @ApiOperation(value="查询景点详细信息", notes="根据分类id，景点名称，地区和国家查询")
+    @GetMapping("/scenicDesc.do")
+    public JsonResult findScenic(Integer vId, String name, String region, String country){
+        ScenicVo scenicVo = scenicService.findScenic(vId, name, region, country);
+        return new JsonResult(1, scenicVo);
     }
 }

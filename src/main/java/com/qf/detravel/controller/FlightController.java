@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 @Api(description ="航班查询API")
 @ServletComponentScan
@@ -34,7 +34,7 @@ public class FlightController {
 
         System.out.println(fDepartureCity + "---" + fArrivalCity+"----"+fDepartureTime);
         try {
-            List allQuery = flightService.findAllQuery();
+            Map allQuery = flightService.findAllQuery();
             return new JsonResult(1, allQuery);
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,13 +43,13 @@ public class FlightController {
     }
 
     //查询单程航班
-    @ApiOperation(value="查询单程航班", notes="根据出发城市，达到城市，出发时间来查询航班信息")
+    @ApiOperation(value="查询单程航班(直飞和中转)", notes="根据出发城市，达到城市，出发时间来查询航班信息")
     @PostMapping("/findFlight.do")
     public JsonResult findAllFlight(String fDepartureCity, String fArrivalCity,String fAirline,@DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")Date fDepartureTime) {
 
         System.out.println(fDepartureCity + "---" + fArrivalCity+"----"+fDepartureTime);
         try {
-            List allFlight = flightService.findAllFlight(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
+            Map allFlight = flightService.findAllFlight(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
             return new JsonResult(1, allFlight);
         } catch (Exception e) {
             e.printStackTrace();

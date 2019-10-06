@@ -21,7 +21,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     </resultMap>
 
     <select id="findByEmail" resultMap="user" >
-        select * from t_user where u_email = #{email}
+        select * from t_user where u_email = #{uEmail}
     </select>
 
     <select id="findByUNickName" resultMap="user" >
@@ -33,7 +33,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     </insert>
 
 
-    <update id="updateByUserId" >
+    <update id="updateByUserId" parameterType="user">
         update t_user
         <set>
             <if test="u_email != null">
@@ -56,13 +56,24 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
             <if test="u_phone != null">
                 u_phone = #{uPhone},
             </if>
+
+
+
         </set>
         where u_id = #{uId}
     </update>
-
-    <select id="findEmailCount" resultType="com.qf.detravel.entity.User">
-        select count(*) as cont from user where u_nickname=#{uNickName}
+    <select id="findByIdUser" parameterType="int" resultMap="user" >
+        select * from t_user where u_id = #{uId}
     </select>
 
+    <select id="findUNickName" parameterType="string" resultMap="user">
+        SELECT u_nickname from t_user where u_nickname = #{nickName}
+    </select>
+    <select id="findEmail" parameterType="string" resultMap="user">
+        SELECT u_email from t_user where u_email = #{uEmail}
+    </select>
+    <select id="findPicture" parameterType="string" resultMap="user">
+        select u_picture from t_user where u_picture = #{uPicture}
+    </select>
 
 </mapper>

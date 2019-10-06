@@ -11,11 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Api(description ="用户管理API")
@@ -100,12 +98,34 @@ public class UserController {
     @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
     public JsonResult updateByUserId(User user){
+        try {
+            userService.findUNickName(user);
+
+        } catch (RuntimeException e) {
+            new JsonResult<String>(0,"修改失败");
+        }
 
         userService.updateByUserId(user);
 
-        if (userService.findEmailCount(user.getuEmail()) > 1){
-            return new JsonResult(0,"邮箱昵称重复，请重新输入！");
-        }
+        User user1 = userService.findByIdUser(user.getuId());
+
+
         return new JsonResult(1,"修改用户信息成功");
     }
+
+    @ApiOperation(value = "查询用户信息",notes = "查询用户信息")
+    @GetMapping("/findUser.do")
+    public JsonResult findUser(Integer uid) {
+        User user = userService.findByIdUser(uid);
+        return new JsonResult(1, "");
+    }
+//    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
+//    @GetMapping("/findPicture.do")
+//    public JsonResult findPicture(Integer uId){
+//        String picture = userService.findPicture(uId);
+//        System.out.println("springmvc文件上传，，，，");
+//
+//
+//    }
+
 }

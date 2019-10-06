@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 @ResponseBody
 public class UserController {
 
-
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired

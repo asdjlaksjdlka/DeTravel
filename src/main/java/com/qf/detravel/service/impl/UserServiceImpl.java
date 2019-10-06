@@ -9,9 +9,8 @@ import com.qf.detravel.entity.User;
 import com.qf.detravel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -42,8 +41,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateByUserId(User user) {
-        userDao.updateByUserId(user);
+        User byUNickName = userDao.findByUNickName(user.getuNickName());
+        User byEmail = userDao.findByEmail(user.getuEmail());
+        if (byEmail != null) {
+            throw new RuntimeException("昵称重复，修改信息失败");
+        } else if (byUNickName != null) {
+            throw new RuntimeException("邮箱重复，修改信息失败");
+        } else {
+            userDao.updateByUserId(user);
+        }
 
+    }
+
+    @Override
+    public User findByIdUser(Integer uId) {
+        return userDao.findUserById(uId);
+    }
+
+    @Override
+    public String findPicture(Integer uId) {
+        return userDao.findPicture(uId);
     }
 
     //添加用户
@@ -52,10 +69,6 @@ public class UserServiceImpl implements UserService {
         userDao.add(user);
     }
 
-    @Override
-    public Integer findEmailCount(String uEmail) {
-        return userDao.findEmailCount(uEmail);
-    }
 
     //注册验证，昵称，邮箱不能重复
     @Override
@@ -94,7 +107,7 @@ public class UserServiceImpl implements UserService {
         map.put("photoCount",countPhoto);
         map.put("fansList",fans);
         map.put("fansCount",countFans);
-        
+
         return map;
     }
 

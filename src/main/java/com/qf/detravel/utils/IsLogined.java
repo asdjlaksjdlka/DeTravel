@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class IsLogined {
 
     @Autowired
-    private  StringRedisTemplate stringRedisTemplate;
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IsLogined isLogined;

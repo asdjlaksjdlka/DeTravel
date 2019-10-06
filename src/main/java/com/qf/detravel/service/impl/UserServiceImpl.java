@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String uEmail, String uPassWord) {
 
+        System.out.println(uEmail+uPassWord);
         User user = userDao.findByEmail(uEmail);
         if (user == null){
             throw new RuntimeException("账号不存在");

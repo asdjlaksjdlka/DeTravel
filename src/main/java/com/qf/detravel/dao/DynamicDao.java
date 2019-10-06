@@ -8,4 +8,5 @@ public interface DynamicDao {
 
     List<Dynamic> findAllDynamicByUserId(Integer id);
 
+    Integer countDynamic(Integer id);
 }

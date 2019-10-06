@@ -26,7 +26,6 @@ public class FlightController {
     @Autowired
     FlightService flightService;
 
-    //登录
     @ApiOperation(value="查询航班", notes="根据出发城市，达到城市，出发时间来查询航班信息")
     @PostMapping("/find.do")
     public JsonResult findAll(String fDepartureCity, String fArrivalCity,@DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")Date fDepartureTime) {

@@ -1,7 +1,8 @@
 package com.qf.detravel.entity;
 
-
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Money
@@ -9,19 +10,14 @@ import java.io.Serializable;
  */
 public class Dynamic implements Serializable {
     private Integer dId;
-    private String dCountry;
-    private Integer pId;
-    private Integer uId;
     private String dDesc;
+    private String dCountry;
+    private Date pId;
+    private Integer uId;
+
     private Photo photo;
+    private List<Comment> comment;
 
-    public String getdDesc() {
-        return dDesc;
-    }
-
-    public void setdDesc(String dDesc) {
-        this.dDesc = dDesc;
-    }
 
     public Photo getPhoto() {
         return photo;
@@ -39,6 +35,14 @@ public class Dynamic implements Serializable {
         this.dId = dId;
     }
 
+    public String getdDesc() {
+        return dDesc;
+    }
+
+    public void setdDesc(String dDesc) {
+        this.dDesc = dDesc;
+    }
+
     public String getdCountry() {
         return dCountry;
     }
@@ -47,11 +51,11 @@ public class Dynamic implements Serializable {
         this.dCountry = dCountry;
     }
 
-    public Integer getpId() {
+    public Date getpId() {
         return pId;
     }
 
-    public void setpId(Integer pId) {
+    public void setpId(Date pId) {
         this.pId = pId;
     }
 
@@ -63,14 +67,24 @@ public class Dynamic implements Serializable {
         this.uId = uId;
     }
 
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
+
     @Override
     public String toString() {
         return "Dynamic{" +
                 "dId=" + dId +
+                ", dDesc='" + dDesc + '\'' +
                 ", dCountry='" + dCountry + '\'' +
                 ", pId=" + pId +
                 ", uId=" + uId +
                 ", photo=" + photo +
+                ", comment=" + comment +
                 '}';
     }
 }

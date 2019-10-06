@@ -6,15 +6,15 @@ import com.qf.detravel.service.UserService;
 import com.qf.detravel.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Api(description ="用户管理API")
@@ -43,12 +43,14 @@ public class UserController {
             //生成token
             String token = MD5Utils.md5(uEmail + "haha");
             // 将token放到redis中
-            stringRedisTemplate.opsForValue().set(token, uEmail);
+            stringRedisTemplate.opsForValue().set(token,user.getuId().toString());
 
             stringRedisTemplate.expire(token, 30, TimeUnit.MINUTES);
             // 将token发送给前端
-
-            return new JsonResult(1, token);
+            Map map  = new HashMap();
+            map.put("token",token);
+            map.put("user",user);
+            return new JsonResult(1, map);
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult(0, e.getMessage());
@@ -84,6 +86,7 @@ public class UserController {
         System.out.println(user);
 
         try {
+            check(user.getuNickName(),user.getuEmail());
             //添加用户
             userService.add(user);
         } catch (Exception e) {
@@ -96,10 +99,30 @@ public class UserController {
     }
 
     //修改用户信息
-    @ApiOperation(value="修改用户信息", notes="根据用户id修改用户信息")
+    @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
-    public JsonResult updateByUserId(Integer uId){
-        User u= userService.updateByUserId(uId);
-        return new JsonResult(1,u);
+    public JsonResult updateByUserId(User user){
+
+        userService.updateByUserId(user);
+
+        if (userService.findEmailCount(user.getuEmail()) > 1){
+            return new JsonResult(0,"邮箱昵称重复，请重新输入！");
+        }
+        return new JsonResult(1,"修改用户信息成功");
     }
+
+
+    @GetMapping("/showUserHomePage.do")
+    public JsonResult<Map> showUserHomePage(Integer uId){
+        Map map = userService.showUserHomePage(uId);
+        return new JsonResult<Map>(1,map);
+
+    }
+
+    @GetMapping("/insertAttention.do")
+    public JsonResult insertAttention(Integer uid,Integer uId){
+        userService.insertAttention(uid,uId);
+        return new JsonResult(1,"关注成功");
+    }
+
 }

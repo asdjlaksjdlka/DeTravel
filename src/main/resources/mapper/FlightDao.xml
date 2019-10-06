@@ -59,11 +59,16 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
 
     <select id="findAllNonstop" resultMap="flight" >
         SELECT * FROM t_flight AS `begin`
-        WHERE
+        <where>
         `begin`.f_departure_city = #{fDepartureCity} AND
         `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY) AND
         `begin`.f_arrival_city = #{fArrivalCity} AND
         `begin`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
+
+        <if test="fAirline != null">
+            and `begin`.f_airline = #{fAirline}
+        </if>
+        </where>
     </select>
 
 
@@ -94,14 +99,34 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         FROM
         t_flight AS `begin` ,
         t_flight AS `end`
-        WHERE
+       <where>
         `begin`.f_departure_city = #{fDepartureCity} AND
         `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY)
         AND `begin`.f_arrival_time &lt; `end`.f_departure_time
         AND `end`.f_arrival_city = #{fArrivalCity}
         AND `end`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
 
+        <if test = "fAirline != null">
+            and `begin`.f_airline = #{fAirline}
+            and `end`.f_airline = #{fAirline}
+        </if>
+       </where>
     </select>
+
+    <select id="findAllDepartureCity" resultType="java.lang.String">
+        SELECT f_departure_city FROM t_flight GROUP BY f_departure_city
+    </select>
+
+    <select id="findAllArrivalCity" resultType="java.lang.String">
+        SELECT f_arrival_city FROM t_flight GROUP BY f_arrival_city
+    </select>
+
+    <select id="findAllAirline" resultType="java.lang.String">
+        SELECT f_airline FROM t_flight GROUP BY f_airline
+    </select>
+
+
+
 
 
 

@@ -7,6 +7,7 @@ import com.qf.detravel.entity.Dynamic;
 import com.qf.detravel.entity.Photo;
 import com.qf.detravel.entity.User;
 import com.qf.detravel.service.UserService;
+import com.qf.detravel.utils.MailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -118,5 +119,26 @@ public class UserServiceImpl implements UserService {
         map.put("fid",fid);
         userDao.insertAttention(map);
 
+    }
+
+    @Override
+    public void resetPassword(String uName, String uNickName, String uEmail) {
+        User user = userDao.findByEmail(uEmail);
+        if (user == null){
+            throw new RuntimeException("邮箱不存在");
+        }else if(!uName.equals(user.getuName())){
+            throw new RuntimeException("姓名错误");
+        } else if (!uNickName.equals(user.getuNickName())) {
+            throw new RuntimeException("昵称错误");
+        }else{
+            try {
+                String newPassword = MailUtils.getValidateCode(6);
+                MailUtils.sendMail(uEmail,uName+"您好：","新的密码："+newPassword);
+                user.setuPassWord(newPassword);
+                userDao.updatePassword(user);
+            }catch (Exception e){
+                throw new RuntimeException("邮件发送失败");
+            }
+        }
     }
 }

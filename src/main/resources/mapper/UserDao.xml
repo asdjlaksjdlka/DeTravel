@@ -57,6 +57,9 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
                 u_phone = #{uPhone},
             </if>
 
+            <if test="uPciture != null">
+                u_picture = #{uPicture},
+            </if>
 
 
         </set>
@@ -82,4 +85,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         insert into t_fans (u_id,fu_id) values (#{uid},#{fid});
     </insert>
 
+    <update id="updatePassword">
+        update t_user set u_password = #{uPassWord} where u_id = #{uId}
+    </update>
 </mapper>

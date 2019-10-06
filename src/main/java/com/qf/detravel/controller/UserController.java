@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.spring.web.json.Json;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,25 +92,28 @@ public class UserController {
     @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
     public JsonResult updateByUserId(User user, MultipartFile upload){
-
-        System.out.println("springmvc文件上传，，，，");
-        //上传位置
-        String path = "/usr/local/tomcat/webapps/images";
-        //判断路径是否存在
-        File file = new File(path);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-        //说明上传文件项
-        //获取上传文件的名称
-        String filename = upload.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
         try {
+        if (upload != null) {
+            System.out.println("springmvc文件上传，，，，");
+            //上传位置
+            String path = "/usr/local/tomcat/webapps/images";
+            //判断路径是否存在
+            File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            //说明上传文件项
+            //获取上传文件的名称
+            String filename = upload.getOriginalFilename();
+            // 把文件的名称设置唯一值，uuid
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            filename = uuid + "_" + filename;
+            // 完成文件上传
+
+
             upload.transferTo(new File(path,filename));
             user.setuPicture(path+filename);
+        }
             userService.updateByUserId(user);
             return new JsonResult(1,"修改用户信息成功");
         } catch (Exception e) {
@@ -137,6 +141,17 @@ public class UserController {
     public JsonResult findUser(Integer uid) {
         User user = userService.findByIdUser(uid);
         return new JsonResult(1, user);
+    }
+
+    @PostMapping("/resetPassword")
+    public JsonResult  resetPassword(String uName,String uNickName,String uEmail){
+        try{
+            userService.resetPassword(uName,uNickName,uEmail);
+            return new JsonResult(1,"发送成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return new JsonResult(0,e.getMessage());
+        }
     }
 
 }

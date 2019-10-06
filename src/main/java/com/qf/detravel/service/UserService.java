@@ -26,4 +26,6 @@ public interface UserService {
     Map showUserHomePage(Integer id);
 
     void insertAttention(Integer uid,Integer fid);
+
+    void resetPassword(String uName,String uNickName,String uEmail);
 }

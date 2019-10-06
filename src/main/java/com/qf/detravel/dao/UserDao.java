@@ -21,4 +21,6 @@ public interface UserDao {
     List<User> fans(Integer uid);
 
     void insertAttention(Map<String,Integer> map);
+
+    void updatePassword(User user);
 }

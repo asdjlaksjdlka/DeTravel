@@ -26,7 +26,6 @@ import java.util.concurrent.TimeUnit;
 @ResponseBody
 public class UserController {
 
-
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
@@ -54,12 +53,8 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult(0, e.getMessage());
-
-
         }
     }
-
-
 
 
     //注册
@@ -78,9 +73,6 @@ public class UserController {
             e.printStackTrace();
             return new JsonResult(0,e.getMessage());
         }
-
-
-
     }
 
     //修改用户信息

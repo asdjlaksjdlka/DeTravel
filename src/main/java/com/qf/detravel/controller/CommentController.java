@@ -54,6 +54,7 @@ public class CommentController {
     @GetMapping(value="/list")
     public JsonResult showList( HttpServletRequest request) {
 
+
         String token = request.getHeader("token");
 
         int uid = isLogined.getUserId(token);

@@ -7,9 +7,7 @@ import com.qf.detravel.service.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -19,7 +17,7 @@ public class FlightServiceImpl implements FlightService {
 
 
     @Override
-    public List findAllQuery() {
+    public Map findAllQuery() {
 
         //查询所有航空公司
         List allAirline = flightDao.findAllAirline();
@@ -30,10 +28,12 @@ public class FlightServiceImpl implements FlightService {
         //查询所有到达城市
         List allArrivalCity = flightDao.findAllArrivalCity();
 
-        List<Object> allQuery = new ArrayList<>();
-        allQuery.add(allAirline);
-        allQuery.add(allDepartureCity);
-        allQuery.add(allArrivalCity);
+
+        HashMap<Object, Object> allQuery = new HashMap<>();
+
+        allQuery.put("DepartureCity",allDepartureCity);
+        allQuery.put("ArrivalCity",allArrivalCity);
+        allQuery.put("Airline",allAirline);
 
         System.out.println(allQuery);
 
@@ -43,7 +43,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline) {
+    public Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline) {
 
         // 查询直达航班
         List<Flight> nonstop = flightDao.findAllNonstop(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
@@ -52,13 +52,15 @@ public class FlightServiceImpl implements FlightService {
         List<FlightTransit> transit = flightDao.findAllTransit(fDepartureCity, fArrivalCity,fDepartureTime, fAirline);
 
 
+
         System.out.println(nonstop);
         System.out.println("----------");
         System.out.println(transit);
-        List<Object> allFlight = new ArrayList<>();
-        allFlight.add(nonstop);
-        allFlight.add(transit);
 
+        HashMap<Object, Object> allFlight = new HashMap<>();
+
+      allFlight.put("nonstop",nonstop);
+      allFlight.put("transit",transit);
 
         return allFlight;
 

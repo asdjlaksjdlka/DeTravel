@@ -72,6 +72,8 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     </select>
 
 
+
+
     <select id="findAllTransit" resultMap="flight1" >
         SELECT
         `begin`.f_id                      AS b_id,
@@ -124,7 +126,6 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     <select id="findAllAirline" resultType="java.lang.String">
         SELECT f_airline FROM t_flight GROUP BY f_airline
     </select>
-
 
 
 

@@ -6,7 +6,6 @@ import com.qf.detravel.service.UserService;
 import com.qf.detravel.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 
 @Api(description ="用户管理API")
 @ServletComponentScan
@@ -30,6 +30,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     //登录
     @ApiOperation(value="用户登录", notes="根据uEmail和uPassWord来判断用户登录信息是否正确，正确返回token")
     @PostMapping("/login.do")
@@ -40,7 +41,7 @@ public class UserController {
         try {
             User user = userService.findByEmail(uEmail, uPassWord);
             //生成token
-            String token = MD5Utils.md5(uEmail + "haha");
+            String token = MD5Utils.md5(user.getuId() + "haha");
             // 将token放到redis中
             stringRedisTemplate.opsForValue().set(token,user.getuId().toString());
 
@@ -57,23 +58,6 @@ public class UserController {
     }
 
 
-    //验证
-    @ApiOperation(value="注册时验证昵称和邮箱（不重复）", notes="根据uNickName和uEmail来判断用户信息是否重复")
-    @PostMapping(path = "/check.do")
-    public JsonResult check(String uNickName, String uEmail) {
-        System.out.println(uNickName+"---"+uEmail);
-
-        try {
-            //注册验证
-            userService.signIn(uNickName, uEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new JsonResult(0, e.getMessage());
-        }
-
-        return new JsonResult(1, "可用");
-
-    }
 
 
     //注册
@@ -83,15 +67,18 @@ public class UserController {
         System.out.println(user);
 
         try {
+            //注册验证
+            userService.signIn(user.getuNickName(),user.getuEmail());
             //添加用户
             userService.add(user);
+            return new JsonResult(1, "注册成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonResult(0, "注册失败");
+            return new JsonResult(0,e.getMessage());
         }
 
 
-        return new JsonResult(1, "注册成功");
+
     }
 
     //修改用户信息

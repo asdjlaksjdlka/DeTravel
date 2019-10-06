@@ -35,8 +35,8 @@ public class DynamicController {
 
         file.transferTo(new File(pare,name));
         //设置时间
-        dynamic.setdTime(new Date());
-        dynamic.setdPhoto(name);
+//        dynamic.setdTime(new Date());
+//        dynamic.setdPhoto(name);
         dynamicService.insertDynamic(dynamic);
         return new JsonResult(1,dynamic);
     }

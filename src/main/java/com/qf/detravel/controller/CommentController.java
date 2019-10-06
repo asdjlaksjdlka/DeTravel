@@ -5,15 +5,15 @@ import com.qf.detravel.entity.Comment;
 import com.qf.detravel.entity.Dynamic;
 import com.qf.detravel.entity.Reply;
 import com.qf.detravel.service.CommentService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import com.qf.detravel.utils.IsLogined;
+import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.List;
 @Api(description ="状态、评论、回复API")
@@ -22,10 +22,19 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private IsLogined isLogined;
+
     @ApiOperation(value="一级评论", notes="在用户发表的状态（朋友圈）下面添加评论，需要获取当前用户id和发表评论的用户id")
-    @RequestMapping(value="/add/first", method= RequestMethod.POST)
-    public JsonResult addCommment(Comment comment) {
+    @PostMapping(value="/add/first")
+    public JsonResult addCommment(
+            @ApiParam(name = "评论对象",value = "传入String格式",required = true)
+                                              Comment comment) {
         comment.setCommentTime(new Date());
         commentService.insertComment(comment);
 
@@ -33,16 +42,20 @@ public class CommentController {
     }
     @ApiOperation(value="回复评论", notes="在用户发表的状态（朋友圈）下面添加的评论回复")
     @RequestMapping(value="/add/second", method= RequestMethod.POST)
-    public JsonResult addReply(Reply reply) {
+    public JsonResult addReply(@ApiParam(name = "回复对象",value = "传入String类型")
+                                           Reply reply) {
         reply.setReplyTime(new Date());
-
         commentService.insertReply(reply);
-
         return new JsonResult(1,reply);
     }
+
     @ApiOperation(value="查询状态（朋友圈）以及评论和回复", notes="遍历获取每个（朋友圈）的内容、评论和回复， List<Dynamic> ")
     @GetMapping(value="/list")
-    public JsonResult showList(Integer uid) {
+    public JsonResult showList( HttpServletRequest request) {
+
+        String token = request.getHeader("token");
+
+        int uid = isLogined.getUserId(token);
 
         List<Dynamic> list = commentService.selectListByUId(uid);
         return new JsonResult(1,list);

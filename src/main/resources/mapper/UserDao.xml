@@ -66,7 +66,9 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     <select id="findByIdUser" parameterType="int" resultMap="user" >
         select * from t_user where u_id = #{uId}
     </select>
-
+    <select id="findUNickName" parameterType="string" resultMap="user">
+        SELECT u_nickname from t_user where u_nickname = #{nickName}
+    </select>
     <select id="findUserById" resultMap="user">
         select * from t_user where u_id = #{id}
     </select>

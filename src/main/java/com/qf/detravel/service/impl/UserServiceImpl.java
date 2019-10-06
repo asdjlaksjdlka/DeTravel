@@ -54,6 +54,17 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+    @Override
+    public void findUNickName(User user) {
+        if (userDao.findUNickName(user.getuNickName()) != null) {
+            throw new RuntimeException("昵称重复，修改信息失败");
+        } else if (userDao.findUNickName(user.getuEmail()) != null) {
+            throw new RuntimeException("邮箱重复，修改信息失败");
+        } else {
+            userDao.updateByUserId(user);
+        }
+
+    }
 
     @Override
     public User findByIdUser(Integer uId) {

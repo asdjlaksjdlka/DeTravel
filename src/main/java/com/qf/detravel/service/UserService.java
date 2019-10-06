@@ -10,7 +10,7 @@ import java.util.List;
 public interface UserService {
 
     User findByEmail(String uEmail,String uPassWord);
-
+    void findUNickName(User user);
     void updateByUserId(User user);
     User findByIdUser(Integer uId);
     String findPicture(Integer uId);

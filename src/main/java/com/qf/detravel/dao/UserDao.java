@@ -9,7 +9,7 @@ public interface UserDao {
     User findByEmail(String email);
 
     User findByUNickName(String uNickName);
-
+    String findUNickName(String uNickName);
     void updateByUserId(User user);
 
     void add(User user);

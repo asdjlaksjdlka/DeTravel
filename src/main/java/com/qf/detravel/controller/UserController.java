@@ -77,8 +77,6 @@ public class UserController {
             return new JsonResult(0,e.getMessage());
         }
 
-
-
     }
 
     //修改用户信息

@@ -9,5 +9,5 @@ public interface FlightService {
     Map findAllQuery();
 
     // 查询所有符合条件航班
-    Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline);
+    Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime,Date fReturnDepartureTime, String fAirline);
 }

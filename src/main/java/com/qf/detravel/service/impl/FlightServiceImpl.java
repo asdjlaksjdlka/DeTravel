@@ -31,9 +31,9 @@ public class FlightServiceImpl implements FlightService {
 
         HashMap<Object, Object> allQuery = new HashMap<>();
 
-        allQuery.put("DepartureCity",allDepartureCity);
-        allQuery.put("ArrivalCity",allArrivalCity);
-        allQuery.put("Airline",allAirline);
+        allQuery.put("DepartureCity", allDepartureCity);
+        allQuery.put("ArrivalCity", allArrivalCity);
+        allQuery.put("Airline", allAirline);
 
         System.out.println(allQuery);
 
@@ -43,26 +43,43 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, String fAirline) {
+    public Map findAllFlight(String fDepartureCity, String fArrivalCity, Date fDepartureTime, Date fReturnDepartureTime, String fAirline) {
 
-        // 查询直达航班
+        String a = "";
+        // 查询单程直达航班
         List<Flight> nonstop = flightDao.findAllNonstop(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
 
-        // 查询中转航班
-        List<FlightTransit> transit = flightDao.findAllTransit(fDepartureCity, fArrivalCity,fDepartureTime, fAirline);
+        // 查询单程中转航班
+        List<FlightTransit> transit = flightDao.findAllTransit(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
 
+        HashMap<Object, Object> allStartFlight = new HashMap<>();
 
+        allStartFlight.put("nonstop", nonstop);
+        allStartFlight.put("transit", transit);
 
-        System.out.println(nonstop);
-        System.out.println("----------");
-        System.out.println(transit);
+        if (fReturnDepartureTime != null && fReturnDepartureTime.toString() != "") {
+            a = fDepartureCity ;
+            fDepartureCity = fArrivalCity;
+            fArrivalCity = a ;
+            // 查询返程直达航班
+            List<Flight> returnNonstop = flightDao.findAllNonstop(fDepartureCity, fArrivalCity, fReturnDepartureTime, fAirline);
 
-        HashMap<Object, Object> allFlight = new HashMap<>();
+            // 查询返程中转航班
+            List<FlightTransit> returnTransit = flightDao.findAllTransit(fDepartureCity, fArrivalCity, fReturnDepartureTime, fAirline);
 
-      allFlight.put("nonstop",nonstop);
-      allFlight.put("transit",transit);
+            HashMap<Object, Object> allReturnFlight = new HashMap<>();
+            allReturnFlight.put("returnNonstop", returnNonstop);
+            allReturnFlight.put("returnTransit", returnTransit);
 
-        return allFlight;
+            HashMap<Object, Object> allFlight = new HashMap<>();
+            allFlight.put("allStartFlight", allStartFlight);
+            allFlight.put("allReturnFlight", allReturnFlight);
+
+            return allFlight;
+        }
+
+        return allStartFlight;
+
 
     }
 }

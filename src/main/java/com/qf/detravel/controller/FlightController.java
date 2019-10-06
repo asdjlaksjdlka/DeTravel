@@ -42,18 +42,25 @@ public class FlightController {
         }
     }
 
-    //查询单程航班
-    @ApiOperation(value="查询单程航班(直飞和中转)", notes="根据出发城市，达到城市，出发时间来查询航班信息")
+    //查询单程或者往返航班
+    @ApiOperation(value="查询单程或往返航班(直飞和中转)", notes="根据出发城市，达到城市，出发时间来查询航班信息，如果不输入返程时间则只查询单程机票，反之，查询往返机票")
     @PostMapping("/findFlight.do")
-    public JsonResult findAllFlight(String fDepartureCity, String fArrivalCity,String fAirline,@DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")Date fDepartureTime) {
+    public JsonResult findAllFlight(String fDepartureCity, String fArrivalCity,String fAirline,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date fDepartureTime,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date fReturnDepartureTime) {
 
-        System.out.println(fDepartureCity + "---" + fArrivalCity+"----"+fDepartureTime);
+        System.out.println(fDepartureCity + "---" + fArrivalCity+"----"+fDepartureTime+"---"+fReturnDepartureTime);
         try {
-            Map allFlight = flightService.findAllFlight(fDepartureCity, fArrivalCity, fDepartureTime, fAirline);
+            Map allFlight = flightService.findAllFlight(fDepartureCity, fArrivalCity, fDepartureTime, fReturnDepartureTime,fAirline);
             return new JsonResult(1, allFlight);
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult(0, "查询失败");
         }
+    }
+
+    //查询单程航班
+    @ApiOperation(value="支付", notes="")
+    @PostMapping("/pay.do")
+    public JsonResult pay(){
+        return new JsonResult(1, "支付成功");
     }
 }

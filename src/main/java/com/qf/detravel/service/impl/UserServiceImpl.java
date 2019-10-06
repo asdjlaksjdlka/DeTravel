@@ -113,7 +113,8 @@ public class UserServiceImpl implements UserService {
         //粉丝数量和信息
         List<User> fans = userDao.fans(id);
         Integer countFans = fans.size();
-
+        User user = userDao.findUserById(id);
+        map.put("user",user);
         map.put("dynamicList",dynamicList);
         map.put("dynamicCount",countDynamic);
         map.put("photoList",photos);

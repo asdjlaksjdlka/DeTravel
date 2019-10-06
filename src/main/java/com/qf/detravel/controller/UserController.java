@@ -29,7 +29,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     //登录
     @ApiOperation(value="用户登录", notes="根据uEmail和uPassWord来判断用户登录信息是否正确，正确返回token")
     @PostMapping("/login.do")
@@ -96,7 +95,7 @@ public class UserController {
     @GetMapping("/findUser.do")
     public JsonResult findUser(Integer uid) {
         User user = userService.findByIdUser(uid);
-        return new JsonResult(1, "");
+        return new JsonResult(1, user);
     }
 //    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
 //    @GetMapping("/findPicture.do")

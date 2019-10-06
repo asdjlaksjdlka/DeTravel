@@ -21,7 +21,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     </resultMap>
 
     <select id="findByEmail" resultMap="user" >
-        select * from t_user where u_email = #{email}
+        select * from t_user where u_email = #{uEmail}
     </select>
 
     <select id="findByUNickName" resultMap="user" >

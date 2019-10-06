@@ -64,6 +64,9 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY) AND
         `begin`.f_arrival_city = #{fArrivalCity} AND
         `begin`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
+        <if test="#{fAirline} != null">
+            and f_airline = #{fAirline}
+        </if>
     </select>
 
 
@@ -100,8 +103,26 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         AND `begin`.f_arrival_time &lt; `end`.f_departure_time
         AND `end`.f_arrival_city = #{fArrivalCity}
         AND `end`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
+        <if test="#{fAirline} != null">
+            and f_airline = #{fAirline}
+        </if>
 
     </select>
+
+    <select id="findAllDepartureCity" resultType="java.lang.String">
+        SELECT f_departure_city FROM t_flight GROUP BY f_departure_city
+    </select>
+
+    <select id="findAllArrivalCity" resultType="java.lang.String">
+        SELECT f_arrival_city FROM t_flight GROUP BY f_arrival_city
+    </select>
+
+    <select id="findAllAirline" resultType="java.lang.String">
+        SELECT f_airline FROM t_flight GROUP BY f_airline
+    </select>
+
+
+
 
 
 

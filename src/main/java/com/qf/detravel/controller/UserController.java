@@ -6,7 +6,6 @@ import com.qf.detravel.service.UserService;
 import com.qf.detravel.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -61,23 +60,6 @@ public class UserController {
     }
 
 
-    //验证
-    @ApiOperation(value="注册时验证昵称和邮箱（不重复）", notes="根据uNickName和uEmail来判断用户信息是否重复")
-    @PostMapping(path = "/check.do")
-    public JsonResult check(String uNickName, String uEmail) {
-        System.out.println(uNickName+"---"+uEmail);
-
-        try {
-            //注册验证
-            userService.signIn(uNickName, uEmail);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new JsonResult(0, e.getMessage());
-        }
-
-        return new JsonResult(1, "可用");
-
-    }
 
 
     //注册
@@ -87,15 +69,18 @@ public class UserController {
         System.out.println(user);
 
         try {
+            //注册验证
+            userService.signIn(user.getuNickName(),user.getuEmail());
             //添加用户
             userService.add(user);
+            return new JsonResult(1, "注册成功");
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonResult(0, "注册失败");
+            return new JsonResult(0,e.getMessage());
         }
 
 
-        return new JsonResult(1, "注册成功");
+
     }
 
     //修改用户信息

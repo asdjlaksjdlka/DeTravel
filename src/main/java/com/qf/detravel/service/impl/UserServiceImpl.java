@@ -47,16 +47,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signIn(String uNickName, String uEmail) {
 
-        if (uNickName == null){
-            throw new RuntimeException("昵称不能为空");
-        }
 
-        if (uEmail == null){
-            throw new RuntimeException("邮箱不能为空");
-        }
 
-        User byEmail = userDao.findByEmail(uEmail);
         User byUNickName = userDao.findByUNickName(uNickName);
+        User byEmail = userDao.findByEmail(uEmail);
         if (byEmail != null){
             throw new RuntimeException("邮箱已被注册");
         }

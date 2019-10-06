@@ -94,7 +94,7 @@ public class UserController {
 
 //        System.out.println("springmvc文件上传，，，，");
         //上传位置
-        String path = "C:\\MyData";
+        String path = "/usr/local/tomcat/webapps/images";
         //判断路径是否存在
         File file = new File(path);
         if (!file.exists()) {

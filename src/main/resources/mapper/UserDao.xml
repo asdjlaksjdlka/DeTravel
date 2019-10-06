@@ -36,24 +36,24 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     <update id="updateByUserId" parameterType="user">
         update t_user
         <set>
-            <if test="u_email != null">
+            <if test="uEmail != null">
                 u_email = #{uEmail},
             </if>
 
-            <if test="u_nickname != null">
+            <if test="uNickName != null">
                 u_nickname = #{uNickName},
             </if>
 
-            <if test="u_name != null">
+            <if test="uName != null">
                 u_name = #{uName},
             </if>
 
-            <if test="u_password != null">
+            <if test="uPassWord != null">
                 u_password = #{uPassWord},
             </if>
 
 
-            <if test="u_phone != null">
+            <if test="uPhone != null">
                 u_phone = #{uPhone},
             </if>
 

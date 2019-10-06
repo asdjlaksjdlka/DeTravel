@@ -2,6 +2,8 @@ package com.qf.detravel.dao;
 
 import com.qf.detravel.entity.User;
 
+import java.util.List;
+
 public interface UserDao {
 
     User findByEmail(String email);
@@ -10,8 +12,14 @@ public interface UserDao {
 
     void updateByUserId(User user);
 
+    User findByIdUser(Integer uId);
+
     void add(User user);
-    Integer findEmailCount(String uEmail);
+
+    String findUNickName(String uNickName);
+    String findEmail(String uEmail);
+
+    String findPicture(Integer uId);
 
 
 

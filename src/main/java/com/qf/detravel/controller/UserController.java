@@ -67,7 +67,7 @@ public class UserController {
 
     //注册
     @ApiOperation(value = "注册(添加用户)", notes = "根据“user”来添加一个用户")
-    @PostMapping(path = "/singIn.do")
+    @RequestMapping(path = "/singIn.do")
     public JsonResult singIn(
             @ApiParam(name = "用户对象",value = "把注册信息封装到用户对象",required = true)
             User user) {
@@ -129,6 +129,9 @@ public class UserController {
         return new JsonResult<Map>(1, map);
 
     }
+
+
+
 
     //获取当前用户id主页
     @ApiOperation(value = "showMyHomePage",notes = "用户个人的信息，返回map与用户主页类似，不需要传id，用户id放在请求头")

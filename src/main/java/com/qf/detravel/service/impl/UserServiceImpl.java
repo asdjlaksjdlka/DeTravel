@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String uEmail, String uPassWord) {
 
+        System.out.println(uEmail+uPassWord);
         User user = userDao.findByEmail(uEmail);
         if (user == null){
             throw new RuntimeException("账号不存在");
@@ -32,6 +33,16 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User findByIdUser(Integer uId) {
+        return userDao.findByIdUser(uId);
+    }
+
+    @Override
+    public String findPicture(Integer uId) {
+        return userDao.findPicture(uId);
+    }
+
     //添加用户
     @Override
     public void add(User user) {
@@ -39,9 +50,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Integer findEmailCount(String uEmail) {
-        return userDao.findEmailCount(uEmail);
+    public void findUNickName(User user) {
+        if (userDao.findUNickName(user.getuNickName()) != null) {
+            throw new RuntimeException("昵称重复，修改信息失败");
+        } else if (userDao.findUNickName(user.getuEmail()) != null) {
+            throw new RuntimeException("邮箱重复，修改信息失败");
+        } else {
+            userDao.updateByUserId(user);
+        }
+
     }
+
+
+
 
     //注册验证，昵称，邮箱不能重复
     @Override

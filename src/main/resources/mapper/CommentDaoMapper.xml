@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qf.detravel.dao.CommentDao" >
+<mapper namespace="com.qf.detravel.dao.CommentDao">
 
-	<resultMap id="comment" type="com.qf.detravel.entity.Comment">
-		<id column="c_id" property="cId"></id>
-		<result column="Did" property="dId"></result>
-		<result column="content" property="content"></result>
-		<result column="from_uid" property="fromUid"></result>
-		<result column="commentTime" property="commentTime"></result>
+    <resultMap id="comment" type="com.qf.detravel.entity.Comment">
+        <id column="c_id" property="cId"></id>
+        <result column="Did" property="dId"></result>
+        <result column="content" property="content"></result>
+        <result column="from_uid" property="fromUid"></result>
+        <result column="commentTime" property="commentTime"></result>
 
-	</resultMap>
-	<insert id="insertComment" parameterType="com.qf.detravel.entity.Comment">
+    </resultMap>
+    <insert id="insertComment" parameterType="com.qf.detravel.entity.Comment">
 		insert into c_comment(c_id, Did, content, from_uid, commentTime) values(
 		#{cId}, #{dId}, #{content}, #{fromUid}, #{commentTime})
 	</insert>
 
-	<resultMap id="reply" type="com.qf.detravel.entity.Reply">
-		<id column="r_id" property="rId"></id>
-		<result column="Did" property="dId"></result>
-		<result column="Cid" property="cId"></result>
-		<result column="from_uid" property="fromUid"></result>
-		<result column="to_uid" property="toUid"></result>
-		<result column="content" property="content"></result>
-		<result column="replyTime" property="replyTime"></result>
-	</resultMap>
+    <resultMap id="reply" type="com.qf.detravel.entity.Reply">
+        <id column="r_id" property="rId"></id>
+        <result column="Did" property="dId"></result>
+        <result column="Cid" property="cId"></result>
+        <result column="from_uid" property="fromUid"></result>
+        <result column="to_uid" property="toUid"></result>
+        <result column="content" property="content"></result>
+        <result column="replyTime" property="replyTime"></result>
+    </resultMap>
 
-	<insert id="insertReply" parameterType="com.qf.detravel.entity.Reply">
+    <insert id="insertReply" parameterType="com.qf.detravel.entity.Reply">
 		insert into r_reply(r_id, Did, Cid, from_uid, to_uid,content,replyTime) values(
 		#{rId}, #{dId}, #{cId}, #{fromUid}, #{toUid}, #{content}, #{replyTime})
 	</insert>
 
 
-	<resultMap id="dynamicMap" type="com.qf.detravel.entity.Dynamic">
-		<id column="d_id" property="dId" jdbcType="INTEGER"/>
-		<result column="d_desc" property="dDesc"/>
-		<result column="d_photo" property="dPhoto"/>
-		<result column="d_time" property="dTime"/>
-		<result column="u_id" property="uId"/>
+    <resultMap id="dynamicMap" type="com.qf.detravel.entity.Dynamic">
+        <id column="d_id" property="dId" jdbcType="INTEGER"/>
+        <result column="d_desc" property="dDesc"/>
+        <result column="d_photo" property="dPhoto"/>
+        <result column="d_time" property="dTime"/>
+        <result column="u_id" property="uId"/>
 
-		<collection property="comment" ofType="com.qf.detravel.entity.Comment">
-			<id column="c_id" property="cId" />
-			<result column="Did" property="dId"/>
-			<result column="content" property="content"/>
-			<result column="from_uid" property="fromUid"/>
-			<result column="commentTime" property="commentTime"/>
+        <collection property="comment" ofType="com.qf.detravel.entity.Comment">
+            <id column="c_id" property="cId"/>
+            <result column="Did" property="dId"/>
+            <result column="c_content" property="c_content"/>
+            <result column="from_uid" property="fromUid"/>
+            <result column="commentTime" property="commentTime"/>
 
-			<collection property="reply" ofType="com.qf.detravel.entity.Reply">
-				<id column="r_id" property="rId"/>
-				<result column="Did" property="dId"/>
-				<result column="Cid" property="cId"/>
-				<result column="from_uid" property="fromUid"/>
-				<result column="to_uid" property="toUid"/>
-				<result column="content" property="content"/>
-				<result column="replyTime" property="replyTime"/>
-			</collection>
-		</collection>
-	</resultMap>
-	<select id="selectListByUId" resultMap="dynamicMap">
+            <collection property="reply" ofType="com.qf.detravel.entity.Reply">
+                <id column="r_id" property="rId"/>
+                <result column="Did" property="dId"/>
+                <result column="Cid" property="cId"/>
+                <result column="from_uid" property="fromUid"/>
+                <result column="to_uid" property="toUid"/>
+                <result column="r_content" property="r_content"/>
+                <result column="replyTime" property="replyTime"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="selectListByUId" resultMap="dynamicMap">
      SELECT
         *
         FROM
@@ -69,7 +69,53 @@
         ) tmp
         LEFT JOIN r_reply rr ON tmp.c_id = rr.Cid
         WHERE
-        u_id = 1
+        u_id = #{uid}
     </select>
 
- </mapper>
+
+    <resultMap id="notification" type="com.qf.detravel.entity.Notification">
+        <id column="n_id" property="nId"></id>
+        <result column="to_user" property="toUser"></result>
+        <result column="from_user" property="fromUser"></result>
+        <result column="n_content" property="nContent"></result>
+        <result column="n-url" property="nUrl"></result>
+        <result column="n_time" property="nTime"></result>
+        <result column="n_type" property="nType"></result>
+        <collection property="user" ofType="com.qf.detravel.entity.User">
+            <id column="u_id" property="uId"></id>
+            <result column="u_name" property="uName"></result>
+            <result column="u_nickname" property="uNickName"></result>
+            <result column="u_email" property="uEmail"></result>
+            <result column="u_password" property="uPassWord"></result>
+            <result column="u_phone" property="uPhone"></result>
+            <result column="u_picture" property="uPicture"></result>
+        </collection>
+    </resultMap>
+
+    <select id="showNotificationByUid" resultMap="notification">
+		SELECT
+            nn.n_id,
+            nn.to_user,
+            nn.from_user,
+            nn.n_content,
+            nn.n_url,
+            nn.n_time,
+            nn.n_type,
+            tu.u_name,
+            tu.u_id,
+            tu.u_nickname,
+            tu.u_email,
+            tu.u_password,
+            tu.u_phone,
+            tu.u_picture
+            FROM
+			n_notification AS nn ,
+			t_user AS tu
+            WHERE
+			nn.from_user=tu.u_id and nn.to_user=#{uid}
+            ORDER BY
+			nn.n_time ASC
+    </select>
+
+
+</mapper>

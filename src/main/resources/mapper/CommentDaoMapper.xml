@@ -11,8 +11,8 @@
 
     </resultMap>
     <insert id="insertComment" parameterType="com.qf.detravel.entity.Comment">
-		insert into c_comment(c_id, Did, content, from_uid, commentTime) values(
-		#{cId}, #{dId}, #{content}, #{fromUid}, #{commentTime})
+		insert into c_comment(c_id, Did,c_content, from_uid, commentTime) values(
+		#{cId}, #{dId}, #{c_content}, #{fromUid}, #{commentTime})
 	</insert>
 
     <resultMap id="reply" type="com.qf.detravel.entity.Reply">

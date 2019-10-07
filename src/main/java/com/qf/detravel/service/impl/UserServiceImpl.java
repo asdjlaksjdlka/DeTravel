@@ -87,8 +87,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void signIn(String uNickName, String uEmail) {
 
-
-
         User byUNickName = userDao.findByUNickName(uNickName);
         User byEmail = userDao.findByEmail(uEmail);
         if (byEmail != null){
@@ -97,8 +95,6 @@ public class UserServiceImpl implements UserService {
         if (byUNickName != null){
             throw new RuntimeException("昵称已被注册");
         }
-
-
     }
 
     @Override

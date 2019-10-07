@@ -1,6 +1,5 @@
 package com.qf.detravel.controller;
 
-
 import com.qf.detravel.common.JsonResult;
 import com.qf.detravel.service.FlightService;
 import io.swagger.annotations.Api;
@@ -27,7 +26,6 @@ public class FlightController {
 
     @Autowired
     FlightService flightService;
-
 
     //查询搜索信息(出发城市，到达城市，航空公司)
     @ApiOperation(value="查询搜索信息(显示可选出发城市，可选到达城市，可选航空公司)")

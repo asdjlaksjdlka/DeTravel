@@ -47,13 +47,12 @@ public class FlightController {
     @PostMapping("/findFlight.do")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fDepartureCity",value = "出发城市",required = true),
-            @ApiImplicitParam(name = "fArrivalCity",value = "出发城市",required = true),
-            @ApiImplicitParam(name = "fDepartureTime",value = "出发时间",required = true,dataType = "日期，格式yyyy-MM-dd "),
+            @ApiImplicitParam(name = "fArrivalCity",value = "到达城市",required = true),
+            @ApiImplicitParam(name = "fDepartureTime",value = "出发时间，日期，格式yyyy-MM-dd",required = true),
             @ApiImplicitParam(name = "fReturnDepartureTime",value = "返程时间(选填项)",required = false,dataType = "日期，格式yyyy-MM-dd ")
     })
     public JsonResult findAllFlight(String fDepartureCity, String fArrivalCity,String fAirline,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date fDepartureTime,@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date fReturnDepartureTime) {
 
-        System.out.println(fDepartureCity + "---" + fArrivalCity+"----"+fDepartureTime+"---"+fReturnDepartureTime);
         try {
             Map allFlight = flightService.findAllFlight(fDepartureCity, fArrivalCity, fDepartureTime, fReturnDepartureTime,fAirline);
             return new JsonResult(1, allFlight);

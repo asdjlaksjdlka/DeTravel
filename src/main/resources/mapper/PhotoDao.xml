@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qf.detravel.dao.PhotoDao" >
+    <resultMap id="photo" type="com.qf.detravel.entity.Photo">
+        <id column="p_id" property="pId"/>
+        <result column="p_url" property="pUrl"/>
+        <result column="s_id" property="sId"/>
+    </resultMap>
+
+    <select id="findByPId" resultMap="photo">
+        select * from t_photo where p_id = #{pid}
+    </select>
+
+    <select id="findPhotosById" resultMap="photo">
+        select p_url from t_photocollect inner join  t_photo  on t_photocollect.p_id = t_photo.p_id
+         and  t_photocollect.u_id = #{uid}
+    </select>
+
+    <select id="countPhoto" resultType="java.lang.Integer">
+        select count(p_url) from t_photocollect left join  t_photo  on t_photocollect.p_id = t_photo.p_id
+         and  t_photocollect.u_id = #{uid}
+    </select>
+</mapper>

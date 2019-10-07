@@ -1,14 +1,24 @@
 package com.qf.detravel.entity;
 
-import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+@ApiModel(value = "User对象",description = "用户对象属性")
 public class User implements Serializable {
+    @ApiModelProperty(value = "用户的id,数据库自增，不需要传",name = "uId")
     private Integer uId;
+    @ApiModelProperty(value = "用户的姓名",name = "uName")
     private String uName;
+    @ApiModelProperty(value = "用户的昵称",name = "uNickName")
     private String uNickName;
+    @ApiModelProperty(value = "用户的邮箱",name = "uEmail")
     private String uEmail;
+    @ApiModelProperty(value = "用户的密码",name = "uPassWord")
     private String uPassWord;
+    @ApiModelProperty(value = "用户的电话",name = "uPhone")
     private String uPhone;
+    @ApiModelProperty(value = "用户的头像地址",name = "uPicture")
     private String uPicture;
 
     public User() {

@@ -15,18 +15,16 @@ public class Dynamic implements Serializable {
     private Date pId;
     private Integer uId;
 
+    private Photo photo;
     private List<Comment> comment;
 
-    @Override
-    public String toString() {
-        return "Dynamic{" +
-                "dId=" + dId +
-                ", dDesc='" + dDesc + '\'' +
-                ", dCountry='" + dCountry + '\'' +
-                ", pId=" + pId +
-                ", uId=" + uId +
-                ", comment=" + comment +
-                '}';
+
+    public Photo getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(Photo photo) {
+        this.photo = photo;
     }
 
     public Integer getdId() {
@@ -75,5 +73,18 @@ public class Dynamic implements Serializable {
 
     public void setComment(List<Comment> comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "Dynamic{" +
+                "dId=" + dId +
+                ", dDesc='" + dDesc + '\'' +
+                ", dCountry='" + dCountry + '\'' +
+                ", pId=" + pId +
+                ", uId=" + uId +
+                ", photo=" + photo +
+                ", comment=" + comment +
+                '}';
     }
 }

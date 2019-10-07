@@ -66,15 +66,26 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
     <select id="findByIdUser" parameterType="int" resultMap="user" >
         select * from t_user where u_id = #{uId}
     </select>
-
     <select id="findUNickName" parameterType="string" resultMap="user">
         SELECT u_nickname from t_user where u_nickname = #{nickName}
     </select>
-    <select id="findEmail" parameterType="string" resultMap="user">
-        SELECT u_email from t_user where u_email = #{uEmail}
+    <select id="findUserById" resultMap="user">
+        select * from t_user where u_id = #{id}
     </select>
+
     <select id="findPicture" parameterType="string" resultMap="user">
         select u_picture from t_user where u_picture = #{uPicture}
     </select>
 
+    <select id="fans" resultMap="user">
+        select u.u_id,u.u_picture from t_user as u inner join t_fans as f on u.u_id = f.u_id and f.u_id = #{id}
+    </select>
+
+    <insert id="insertAttention" >
+        insert into t_fans (u_id,fu_id) values (#{uid},#{fid});
+    </insert>
+
+    <update id="updatePassword">
+        update t_user set u_password = #{uPassWord} where u_id = #{uId}
+    </update>
 </mapper>

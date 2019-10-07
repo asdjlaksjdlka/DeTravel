@@ -4,15 +4,27 @@
 <mapper namespace="com.qf.detravel.dao.DynamicDao">
     <resultMap id="dynamic" type="com.qf.detravel.entity.Dynamic">
         <id column="d_id" property="dId"/>
-        <result column="d_desc" property="dDesc"/>
-        <result column="d_photo" property="dPhoto"/>
-        <result column="d_time" property="dTime"/>
+        <result column="d_country" property="dCountry"/>
         <result column="u_id" property="uId"/>
+        <result column="p_id" property="pId"/>
+        <result column="d_desc" property="dDesc"/>
+        <association property="photo"  javaType="com.qf.detravel.entity.Photo"
+                     column="p_id" select="com.qf.detravel.dao.PhotoDao.findByPId">
+            <id column="p_id" property="pId"/>
+            <result column="p_url" property="pUrl"/>
+            <result column="s_id" property="sId"/>
+        </association>
     </resultMap>
 
-    <insert id="insertDynamic">
-        insert into t_dynamic (d_desc,d_photo,d_time,u_id) values (#{dDesc},#{dPhoto},#{dTime},#{uId})
-    </insert>
+    <select id="findAllDynamicByUserId" resultMap="dynamic">
+        select * from t_dynamic where u_id = #{id} 
+    </select>
+
+    <select id="countDynamic" resultType="java.lang.Integer">
+        select count(d_id) from t_dynamic where u_id = #{id}
+    </select>
+
+
 
 
 </mapper>

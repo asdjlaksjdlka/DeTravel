@@ -72,7 +72,7 @@ public class UserController {
             @ApiParam(name = "用户对象",value = "把注册信息封装到用户对象",required = true)
             User user) {
 //        System.out.println(user);
-
+        System.out.println(user+"=====");
         try {
             //注册验证
             userService.signIn(user.getuNickName(), user.getuEmail());

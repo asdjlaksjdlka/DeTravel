@@ -103,6 +103,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         `begin`.f_departure_city = #{fDepartureCity} AND
         `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY)
         AND `begin`.f_arrival_time &lt; `end`.f_departure_time
+        AND `begin`.f_arrival_city = `end`.f_departure_city
         AND `end`.f_arrival_city = #{fArrivalCity}
         AND `end`.f_arrival_time &lt;= DATE_ADD(#{fDepartureTime},INTERVAL 2 DAY)
 

@@ -37,7 +37,7 @@
     </select>
 
     <select id="findCountryCount" resultType="map">
-        SELECT COUNT(*),s_country FROM t_scenic WHERE v_id = #{vId} and s_region =#{sRegion} and s_country = #{sCountry}
+        SELECT COUNT(*) as number, s_country FROM t_scenic WHERE v_id = #{vId} and s_region =#{sRegion} and s_country = #{sCountry}
     </select>
 
     <select id="findScenic" resultMap="scenicMap">

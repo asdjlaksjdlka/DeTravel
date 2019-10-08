@@ -28,7 +28,7 @@
         <result column="p_url" property="pUrl"></result>
     </resultMap>
 
-    <select id="findAllScenic" resultMap="scenicMap">
+    <select id="findAllScenic" resultMap="scenicsMap">
         select s_name, p_url from t_scenic where v_id = #{vId} and s_region = #{sRegion}
     </select>
 
@@ -37,7 +37,7 @@
     </select>
 
     <select id="findCountryCount" resultType="map">
-        SELECT COUNT(s_name),s_country FROM t_scenic WHERE v_id = #{vId} and s_region =#{sRegion} and s_country = #{sCountry}
+        SELECT COUNT(*),s_country FROM t_scenic WHERE v_id = #{vId} and s_region =#{sRegion} and s_country = #{sCountry}
     </select>
 
     <select id="findScenic" resultMap="scenicMap">

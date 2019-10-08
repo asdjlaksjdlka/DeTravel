@@ -7,7 +7,6 @@ import com.qf.detravel.entity.Notification;
 import com.qf.detravel.entity.Reply;
 import com.qf.detravel.service.CommentService;
 import com.qf.detravel.utils.IsLogined;
-import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -53,7 +52,6 @@ public class CommentController {
     @ApiOperation(value="查询状态（朋友圈）以及评论和回复", notes="遍历获取每个（朋友圈）的内容、评论和回复， List<Dynamic> ")
     @GetMapping(value="/list")
     public JsonResult showList( HttpServletRequest request) {
-
 
         String token = request.getHeader("token");
 

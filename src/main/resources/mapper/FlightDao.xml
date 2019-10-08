@@ -53,8 +53,6 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
             <result column="e_arrival_time"            property="fArrivalTime"></result>
             <result column="e_price"                   property="fPrice"></result>
         </association>
-
-
     </resultMap>
 
     <select id="findAllNonstop" resultMap="flight" >
@@ -101,7 +99,7 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
         FROM
         t_flight AS `begin` ,
         t_flight AS `end`
-       <where>
+        <where>
         `begin`.f_departure_city = #{fDepartureCity} AND
         `begin`.f_departure_time BETWEEN #{fDepartureTime} AND DATE_ADD(#{fDepartureTime},INTERVAL 1 DAY)
         AND `begin`.f_arrival_time &lt; `end`.f_departure_time

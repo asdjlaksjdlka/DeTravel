@@ -15,7 +15,6 @@ public class FlightServiceImpl implements FlightService {
     @Autowired
     private FlightDao flightDao;
 
-
     @Override
     public Map findAllQuery() {
 
@@ -28,7 +27,6 @@ public class FlightServiceImpl implements FlightService {
         //查询所有到达城市
         List allArrivalCity = flightDao.findAllArrivalCity();
 
-
         HashMap<Object, Object> allQuery = new HashMap<>();
 
         allQuery.put("DepartureCity", allDepartureCity);
@@ -38,8 +36,6 @@ public class FlightServiceImpl implements FlightService {
         System.out.println(allQuery);
 
         return allQuery;
-
-
     }
 
     @Override
@@ -79,7 +75,5 @@ public class FlightServiceImpl implements FlightService {
         }
 
         return allStartFlight;
-
-
     }
 }

@@ -33,7 +33,7 @@
     </select>
 
     <select id="findAllByCountry" resultMap="scenicsMap">
-        select s_name, p_url from t_scenic where v_id = #{vId} and s_region = #{sRegion} and s_country = #{sCountry}
+        select s_country, s_name, p_url from t_scenic where v_id = #{vId} and s_region = #{sRegion} and s_country = #{sCountry}
     </select>
 
     <select id="findCountryCount" resultType="map">

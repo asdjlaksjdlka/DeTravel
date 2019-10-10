@@ -29,7 +29,7 @@
     </resultMap>
 
     <select id="findAllScenic" resultMap="scenicsMap">
-        select s_name, p_url from t_scenic where v_id = #{vId} and s_region = #{sRegion}
+        select s_country, s_name, p_url from t_scenic where v_id = #{vId} and s_region = #{sRegion}
     </select>
 
     <select id="findAllByCountry" resultMap="scenicsMap">

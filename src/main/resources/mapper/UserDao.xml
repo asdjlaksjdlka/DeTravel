@@ -52,13 +52,13 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
                 u_password = #{uPassWord},
             </if>
 
-
             <if test="uPhone != null">
                 u_phone = #{uPhone},
             </if>
 
-
-
+            <if test="uPicture != null">
+                u_picture = #{uPicture},
+            </if>
         </set>
         where u_id = #{uId}
     </update>

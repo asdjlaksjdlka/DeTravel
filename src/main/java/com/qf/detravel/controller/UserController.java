@@ -89,28 +89,31 @@ public class UserController {
     @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
     public JsonResult updateByUserId(User user, MultipartFile upload){
-
-        System.out.println("springmvc文件上传，，，，");
-        //上传位置
-        String path = "/usr/local/tomcat/webapps/images";
-        //判断路径是否存在
-        File file = new File(path);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-        //说明上传文件项
-        //获取上传文件的名称
-        String filename = upload.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
         try {
-            upload.transferTo(new File(path,filename));
-            user.setuPicture(path+filename);
+        if (upload != null) {
+            System.out.println("springmvc文件上传，，，，");
+            //上传位置
+            String path = "D:\\picture";
+            //判断路径是否存在
+            File file = new File(path);
+            if (!file.exists()) {
+                file.mkdirs();
+            }
+            //说明上传文件项
+            //获取上传文件的名称
+            String filename = upload.getOriginalFilename();
+            // 把文件的名称设置唯一值，uuid
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            filename = uuid + "_" + filename;
+            // 完成文件上传
+
+            upload.transferTo(new File(path, filename));
+            user.setuPicture(path + filename);
+        }
             userService.updateByUserId(user);
-            return new JsonResult(1,"修改用户信息成功");
+            return new JsonResult(1,user);
         } catch (Exception e) {
+            e.printStackTrace();
             return new JsonResult<String>(0,"修改失败");
         }
 

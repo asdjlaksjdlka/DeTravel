@@ -164,36 +164,36 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
-    @PostMapping("/findPicture.do")
-    public JsonResult findPicture(Integer uId,MultipartFile upload){
-        String picture = userService.findPicture(uId);
-
-//        System.out.println("springmvc文件上传，，，，");
-        //上传位置
-        String path = "/usr/local/tomcat/webapps/images";
-        //判断路径是否存在
-        File file = new File(path);
-        if (!file.exists()){
-            file.mkdirs();
-        }
-        //说明上传文件项
-        //获取上传文件的名称
-        String filename = upload.getOriginalFilename();
-        // 把文件的名称设置唯一值，uuid
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        filename = uuid+"_"+filename;
-        // 完成文件上传
-        try {
-            upload.transferTo(new File(path,filename));
-            return new JsonResult(1,"上传成功");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new JsonResult(0,"上传失败");
-
-        }
-
-    }
+//    @ApiOperation(value = "上传用户头像",notes = "上传用户头像")
+//    @PostMapping("/findPicture.do")
+//    public JsonResult findPicture(Integer uId,MultipartFile upload){
+//        String picture = userService.findPicture(uId);
+//
+////        System.out.println("springmvc文件上传，，，，");
+//        //上传位置
+//        String path = "/usr/local/tomcat/webapps/images";
+//        //判断路径是否存在
+//        File file = new File(path);
+//        if (!file.exists()){
+//            file.mkdirs();
+//        }
+//        //说明上传文件项
+//        //获取上传文件的名称
+//        String filename = upload.getOriginalFilename();
+//        // 把文件的名称设置唯一值，uuid
+//        String uuid = UUID.randomUUID().toString().replace("-", "");
+//        filename = uuid+"_"+filename;
+//        // 完成文件上传
+//        try {
+//            upload.transferTo(new File(path,filename));
+//            return new JsonResult(1,"上传成功");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new JsonResult(0,"上传失败");
+//
+//        }
+//
+//    }
 
 }

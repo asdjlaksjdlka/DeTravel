@@ -13,6 +13,7 @@ public interface UserDao {
     void updateByUserId(User user);
 
     User findByIdUser(Integer uId);
+    User findUserByNotId(Integer uId);
 
     void add(User user);
 

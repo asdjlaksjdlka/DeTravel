@@ -1,8 +1,10 @@
 package com.qf.detravel.controller;
 
 import com.qf.detravel.common.JsonResult;
+import com.qf.detravel.dao.UserDao;
 import com.qf.detravel.entity.User;
 import com.qf.detravel.service.UserService;
+import com.qf.detravel.utils.IsLogined;
 import com.qf.detravel.utils.MD5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -33,6 +36,11 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     UserService userService;
+    @Autowired
+    private IsLogined isLogined;
+    @Autowired(required = false)
+    private UserDao userDao;
+
 
 
     //登录
@@ -88,12 +96,15 @@ public class UserController {
     //修改用户信息
     @ApiOperation(value="修改用户信息", notes="修改用户信息")
     @PostMapping(path = "/updateByUserId.do")
-    public JsonResult updateByUserId(User user, MultipartFile upload){
+    public JsonResult updateByUserId(User user, MultipartFile upload, HttpServletRequest request){
         try {
+            String token = request.getHeader("token");
+
+            int uid = isLogined.getUserId(token);
         if (upload != null) {
-            System.out.println("springmvc文件上传，，，，");
+//            System.out.println("springmvc文件上传，，，，");
             //上传位置
-            String path = "D:\\picture";
+            String path = "/usr/local/tomcat/webapps/images";
             //判断路径是否存在
             File file = new File(path);
             if (!file.exists()) {
@@ -109,12 +120,34 @@ public class UserController {
 
             upload.transferTo(new File(path, filename));
             user.setuPicture(path + filename);
+
         }
+            User byUNickName = userDao.findByUNickName(user.getuNickName());
+            User userByNotId = userDao.findUserByNotId(uid);
+            if (byUNickName.equals(userByNotId)){
+
+                    return new JsonResult(0, "昵称重复，请重新输入");
+                }
+
+            User byEmail = userDao.findByEmail(user.getuEmail());
+
+            if (byEmail.equals(userByNotId)){
+                return new JsonResult(0,"邮箱重复，请重新输入");
+            }
+
+
+
+//            if (user.getuNickName().equals(userService.findByIdUser(uid).getuNickName()) ){
+//                return new JsonResult(0,"昵称重复，请重新输入");
+//            }
+//            if (user.equals(user.getuEmail())){
+//                return new JsonResult(0,"邮箱重复，请重新输入");
+//            }
             userService.updateByUserId(user);
             return new JsonResult(1,user);
         } catch (Exception e) {
             e.printStackTrace();
-            return new JsonResult<String>(0,"修改失败");
+            return new JsonResult(0,"修改失败");
         }
 
 
@@ -136,9 +169,9 @@ public class UserController {
     public JsonResult findPicture(Integer uId,MultipartFile upload){
         String picture = userService.findPicture(uId);
 
-        System.out.println("springmvc文件上传，，，，");
+//        System.out.println("springmvc文件上传，，，，");
         //上传位置
-        String path = "D:\\picture";
+        String path = "/usr/local/tomcat/webapps/images";
         //判断路径是否存在
         File file = new File(path);
         if (!file.exists()){

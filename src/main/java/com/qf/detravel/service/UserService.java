@@ -12,6 +12,7 @@ public interface UserService {
     void updateByUserId(User user);
     User findByIdUser(Integer uId);
     String findPicture(Integer uId);
+    User findUserByNotId(Integer uId);
 
     void add(User user);
     void findUNickName(User user);

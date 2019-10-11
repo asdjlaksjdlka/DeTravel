@@ -60,8 +60,12 @@ dao层接口中的方法名和映射文件中增删改查配置的statement id�
                 u_picture = #{uPicture},
             </if>
         </set>
-        where u_id = #{uId}
+        where  u_id = #{uId}
     </update>
+
+    <select id="findUserByNotId" resultMap="user" >
+        select * from t_user where u_id != #{uId}
+    </select>
     <select id="findByIdUser" parameterType="int" resultMap="user" >
         select * from t_user where u_id = #{uId}
     </select>
